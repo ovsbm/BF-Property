@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>BF Property — Social</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    body { margin: 0; padding: 48px 32px; background: #C9C2B5; }
+    .stage { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+    .row-head {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: #1A1A1A; opacity: 0.6;
+      padding-bottom: 8px; border-bottom: 1px solid rgba(26,26,26,0.25); margin-bottom: 8px;
+    }
+    .caption { font-size: 12px; color: rgba(26,26,26,0.7); margin-top: 8px; }
+
+    /* base tile */
+    .tile {
+      background: var(--bf-cream); color: var(--bf-ink); font-family: var(--bf-font);
+      position: relative; overflow: hidden;
+      box-sizing: border-box;
+    }
+    .tile.parchment { background: var(--bf-parchment); color: var(--bf-ink); }
+    .tile.dark { background: var(--bf-ink); color: var(--bf-cream); }
+    .tile.red  { background: var(--bf-red); color: var(--bf-cream); }
+    .tile.oxblood { background: var(--bf-oxblood); color: var(--bf-cream); }
+    .tile.warm { background: var(--bf-cream-warm); color: var(--bf-ink); }
+
+    /* sizes — scaled down for layout, every tile carries its real aspect ratio */
+    .ig-portrait { width: 320px; aspect-ratio: 4 / 5; }
+    .ig-square   { width: 320px; aspect-ratio: 1 / 1; }
+    .ig-story    { width: 240px; aspect-ratio: 9 / 16; }
+    .fb-link     { width: 540px; }
+
+    .pad-lg { padding: 28px; }
+    .pad-md { padding: 22px; }
+
+    .eyebrow {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+      color: rgba(26,26,26,0.6); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .eyebrow .dot { width: 7px; height: 7px; background: var(--bf-red); display: inline-block; border-radius: 999px; }
+    .tile.dark .eyebrow, .tile.red .eyebrow, .tile.oxblood .eyebrow { color: rgba(241,235,223,0.7); }
+    .tile.dark .eyebrow .dot, .tile.red .eyebrow .dot, .tile.oxblood .eyebrow .dot { background: var(--bf-cream); }
+
+    .stack { display: flex; flex-direction: column; height: 100%; }
+    .stack .grow { flex: 1; }
+    .stack .head { display: flex; justify-content: space-between; align-items: center; }
+    .stack .foot { display: flex; justify-content: space-between; align-items: end; gap: 12px; }
+
+    .mark-mono { display: inline-flex; align-items: center; }
+    .mark-mono img { height: 24px; width: auto; display: block; }
+
+    .h-quote { font-size: 30px; line-height: 1.08; letter-spacing: -0.01em; font-weight: 400; }
+    .h-quote em { font-style: normal; color: var(--bf-red); }
+    .tile.dark .h-quote em, .tile.red .h-quote em, .tile.oxblood .h-quote em { color: var(--bf-cream); opacity: 0.55; }
+    .h-stat { font-size: 96px; line-height: 0.95; letter-spacing: -0.02em; font-weight: 400; }
+    .h-card { font-size: 22px; line-height: 1.25; letter-spacing: -0.01em; font-weight: 400; }
+
+    .label-sm { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; opacity: 0.7; }
+
+    /* photo tile — full-bleed image */
+    .photo-tile { display: block; background-size: cover; background-position: center; }
+    .photo-overlay {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 22px;
+      background: linear-gradient(180deg, transparent, rgba(26,26,26,0.0) 0%, rgba(26,26,26,0.65) 100%);
+      color: var(--bf-cream);
+    }
+    .photo-tag {
+      position: absolute; top: 18px; left: 18px;
+      background: var(--bf-red); color: var(--bf-cream);
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    /* IG carousel cover — 4/5 cream + red word */
+    .ig-cover-num {
+      font-size: 200px; line-height: 0.85; letter-spacing: -0.02em; font-weight: 400; color: var(--bf-red);
+    }
+
+    /* fb link preview */
+    .fb-card {
+      background: var(--bf-cream); border: 1px solid rgba(26,26,26,0.15);
+      display: flex; flex-direction: column; font-family: var(--bf-font);
+      border-radius: 16px; overflow: hidden;
+    }
+    .fb-card .img { height: 220px; background-size: cover; background-position: center; }
+    .fb-card .meta { padding: 16px 18px; border-top: 1px solid rgba(26,26,26,0.15); background: var(--bf-cream-warm); }
+    .fb-card .meta .src { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,26,26,0.6); font-weight: 600; }
+    .fb-card .meta .ttl { font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; margin-top: 4px; color: var(--bf-ink); }
+    .fb-card .meta .desc { font-size: 14px; color: rgba(26,26,26,0.6); margin-top: 6px; line-height: 1.5; }
+
+    /* IG story handle */
+    .story-handle {
+      position: absolute; top: 12px; left: 12px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--bf-cream);
+      background: rgba(0,0,0,0.35); padding: 5px 12px 5px 5px; backdrop-filter: blur(8px);
+      border-radius: 999px;
+    }
+    .story-handle .avatar { width: 22px; height: 22px; border-radius: 999px; background: var(--bf-red); display: flex; align-items: center; justify-content: center; color: var(--bf-cream); font-size: 10px; font-weight: 600; overflow: hidden; }
+    .story-handle .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  </style>
+</head>
+<body data-screen-label="Social kit">
+  <div class="stage">
+
+    <!-- ============ INSTAGRAM PORTRAIT (4/5) ============ -->
+    <div>
+      <div class="row-head">Instagram · in-feed portrait · 1080×1350 (4/5)</div>
+      <div class="row">
+
+        <!-- A. cream type-led quote -->
+        <div data-screen-label="IG portrait · type quote">
+          <div class="tile ig-portrait pad-lg">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> BF Property</div>
+                <div class="mark-mono"><img src="../../assets/monogram-red.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:center;">
+                <div class="h-quote">We develop.<br><em>You receive.</em></div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">Twenty-two years building<br>in Canterbury.</div>
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">01 / 04</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Cream type-led · the verbal signature</div>
+        </div>
+
+        <!-- B. project photo with overlay -->
+        <div data-screen-label="IG portrait · project photo">
+          <div class="tile ig-portrait photo-tile" style="background-image:url('../../assets/exterior-streetview-dusk.jpg')">
+            <div class="photo-tag">Handed over</div>
+            <div class="photo-overlay">
+              <div class="label-sm" style="color: rgba(241,235,223,0.7); margin-bottom: 4px;">Halswell · March 2025</div>
+              <div style="font-size: 22px; line-height: 1.25; letter-spacing: -0.01em; color: var(--bf-cream);">Three-unit townhouse, complete.</div>
+            </div>
+          </div>
+          <div class="caption">Project photo · overlay caption only</div>
+        </div>
+
+        <!-- C. red stat -->
+        <div data-screen-label="IG portrait · stat card">
+          <div class="tile ig-portrait red pad-lg">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> Twenty-two years</div>
+                <div class="mark-mono"><img src="../../assets/monogram-cream.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; flex-direction:column; justify-content:center;">
+                <div class="h-stat">22</div>
+                <div style="font-size: 18px; line-height: 1.45; margin-top: 8px; color: rgba(241,235,223,0.85); max-width: 220px;">years building in Canterbury, under buildFIRST and now BF Property.</div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(241,235,223,0.7);">bfproperty.co.nz</div>
+                <div class="label-sm" style="color: rgba(241,235,223,0.7);">02 / 04</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Red stat · the active accent on social</div>
+        </div>
+
+        <!-- D. carousel cover -->
+        <div data-screen-label="IG portrait · carousel cover">
+          <div class="tile ig-portrait pad-lg parchment">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> A short process explainer</div>
+                <div class="mark-mono"><img src="../../assets/monogram-red.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:flex-end;">
+                <div>
+                  <div class="ig-cover-num">04</div>
+                  <div style="font-size:22px; line-height:1.25; letter-spacing:-0.01em; margin-top:8px;">steps from your land<br>to a finished building.</div>
+                </div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">Swipe →</div>
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">Carousel cover</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Carousel cover · numeral-led</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ INSTAGRAM SQUARE (1/1) ============ -->
+    <div>
+      <div class="row-head">Instagram · square · 1080×1080</div>
+      <div class="row">
+
+        <!-- A. oxblood type -->
+        <div data-screen-label="IG square · oxblood type">
+          <div class="tile ig-square oxblood pad-lg">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> Currently in build</div>
+                <div class="mark-mono"><img src="../../assets/monogram-cream.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:flex-end;">
+                <div style="font-size:34px; line-height:1.1; letter-spacing:-0.01em; color: var(--bf-cream);">Two-unit pair,<br>Riccarton.<br><span style="opacity:0.55;">Handover Q3 2026.</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Oxblood square · project update</div>
+        </div>
+
+        <!-- B. detail photo -->
+        <div data-screen-label="IG square · detail photo">
+          <div class="tile ig-square photo-tile" style="background-image:url('../../assets/interior-bathroom.jpg')">
+            <div class="photo-overlay">
+              <div style="font-size: 15px; line-height: 1.45; color: var(--bf-cream); max-width: 240px;">Bathroom, Halswell handover. Tapware: brushed brass. Tile: travertine, 600×300.</div>
+            </div>
+          </div>
+          <div class="caption">Detail photo · process visibility</div>
+        </div>
+
+        <!-- C. quote on cream -->
+        <div data-screen-label="IG square · client quote">
+          <div class="tile ig-square pad-lg">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> Client note</div>
+                <div class="mark-mono"><img src="../../assets/monogram-red.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:center;">
+                <div style="font-size: 22px; line-height: 1.4; letter-spacing:-0.005em;">"They told us what was happening every fortnight for fourteen months. We signed at handover. That was the work we did."</div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">— M. Holdsworth, Halswell · 2025</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Client note · specific, no charm</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ INSTAGRAM STORY ============ -->
+    <div>
+      <div class="row-head">Instagram · story · 1080×1920 (9/16)</div>
+      <div class="row">
+
+        <div data-screen-label="IG story · photo + tag">
+          <div class="tile ig-story photo-tile" style="background-image:url('../../assets/exterior-deck-dusk.jpg')">
+            <div class="story-handle">
+              <div class="avatar">BF</div>
+              <div>bfproperty</div>
+            </div>
+            <div class="photo-overlay" style="padding: 18px;">
+              <div class="label-sm" style="color: rgba(241,235,223,0.7);">Riccarton · in build</div>
+              <div style="font-size: 18px; line-height: 1.25; color: var(--bf-cream); margin-top: 4px;">Deck framed. Cladding next week.</div>
+            </div>
+          </div>
+          <div class="caption">Story · photo with project tag</div>
+        </div>
+
+        <div data-screen-label="IG story · red type">
+          <div class="tile ig-story red" style="padding: 22px;">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> BF Property</div>
+                <div class="mark-mono"><img src="../../assets/monogram-cream.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:center;">
+                <div style="font-size: 30px; line-height: 1.08; letter-spacing:-0.01em;">You bring the land. We bring the rest.</div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(241,235,223,0.8);">Tap to start a conversation →</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Story · CTA</div>
+        </div>
+
+        <div data-screen-label="IG story · process step">
+          <div class="tile ig-story parchment" style="padding: 22px;">
+            <div class="stack">
+              <div class="head">
+                <div class="eyebrow"><span class="dot"></span> Step 02 / 04</div>
+                <div class="mark-mono"><img src="../../assets/monogram-red.png" alt=""></div>
+              </div>
+              <div class="grow" style="display:flex; align-items:flex-end;">
+                <div>
+                  <div style="font-size: 64px; line-height: 0.95; letter-spacing:-0.02em; color: var(--bf-red);">02</div>
+                  <div style="font-size: 20px; line-height: 1.25; letter-spacing:-0.01em; margin-top: 8px;">Planning and consent.</div>
+                  <div style="font-size: 13px; color: rgba(26,26,26,0.6); margin-top: 8px; line-height: 1.5;">We coordinate architecture, run the council pre-app, lodge resource and building consent.</div>
+                </div>
+              </div>
+              <div class="foot">
+                <div class="label-sm" style="color: rgba(26,26,26,0.6);">Swipe up — see full process</div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">Story · carousel step</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ FACEBOOK LINK PREVIEW ============ -->
+    <div>
+      <div class="row-head">Facebook · link preview card</div>
+      <div class="row">
+        <div data-screen-label="FB link preview">
+          <div class="fb-card fb-link">
+            <div class="img" style="background-image:url('../../assets/exterior-streetview-dusk.jpg')"></div>
+            <div class="meta">
+              <div class="src">BFPROPERTY.CO.NZ</div>
+              <div class="ttl">Three-unit townhouse, Halswell — completed March 2025.</div>
+              <div class="desc">Site sourcing, consent, build and handover, run by one senior team out of Christchurch. Twenty-two years of building in Canterbury.</div>
+            </div>
+          </div>
+          <div class="caption">Open Graph preview — uses the existing site image + heading style</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>Sell us your land · BF Property</title>
+  <meta name="description" content="Have land in Canterbury with development potential? We assess it, make an offer, or propose a partnership.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Sell us your land · BF Property">
+  <meta property="og:description" content="Have land in Canterbury with development potential? We assess it, make an offer, or propose a partnership.">
+  <meta property="og:image" content="../../assets/exterior-streetview-dusk.jpg">
+
+  <link rel="stylesheet" href="../../webflow/flowkit-tokens.css">
+  <link rel="stylesheet" href="_page.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="_chrome.js" data-root="" defer></script>
+</head>
+
+<body data-screen-label="Sell us your land">
+  <main id="main">
+
+    <section class="section page-hero" aria-labelledby="sell-heading">
+      <div class="container">
+        <div class="eyebrow margin-bottom_medium"><span class="eyebrow_dot"></span> For land owners</div>
+        <div class="page-hero_grid">
+          <h1 id="sell-heading" class="page-hero_heading">Land with development potential.<br>We assess it. <em>You decide.</em></h1>
+          <p class="page-hero_lead">If you own land in Canterbury that could carry more than one dwelling, BF Property will write you a free assessment. The result is yours regardless of what you do next.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="hero_image" aria-hidden="true">
+      <img src="../../assets/exterior-streetview-dusk.jpg" alt="" loading="lazy">
+    </div>
+
+    <section class="section" aria-labelledby="three-paths-heading">
+      <div class="container">
+        <div class="eyebrow margin-bottom_small"><span class="eyebrow_dot"></span> Three paths</div>
+        <h2 id="three-paths-heading" class="margin-bottom_large">After the assessment you have three options. All three are normal outcomes.</h2>
+        <div class="paths_grid">
+          <article class="card is-bordered paths_card">
+            <div class="paths_num">Option one</div>
+            <h3>Sell to BF Property</h3>
+            <p>If the site fits a current pipeline we make an offer at market value. Cash settlement. You retain the assessment.</p>
+          </article>
+          <article class="card is-bordered paths_card">
+            <div class="paths_num">Option two</div>
+            <h3>Develop together</h3>
+            <p>You keep ownership of the land. BF builds at a fixed price, you receive the completed units, the partnership ends at handover. No equity stake taken.</p>
+          </article>
+          <article class="card is-bordered paths_card">
+            <div class="paths_num">Option three</div>
+            <h3>Walk away with the note</h3>
+            <p>The written assessment is yours. Use it with another builder, a buyer, a developer. We charge nothing for the first feasibility.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section land-form-section" id="assess" aria-labelledby="land-form-heading">
+      <div class="container">
+        <div class="lead-form_grid">
+          <form class="lead-form" onsubmit="event.preventDefault(); document.getElementById('land-form-success').hidden=false; this.querySelector('button[type=submit]').textContent='Sent'; this.querySelector('button[type=submit]').disabled=true;" aria-labelledby="land-form-heading">
+            <h2 id="land-form-heading" class="lead-form_heading">Tell us about the site.</h2>
+            <p class="lead-form_intro">We reply with an assessment within ten working days. Skip anything you would rather discuss in person.</p>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About you</legend>
+              <div class="form-row">
+                <div class="form_field">
+                  <label for="l-name" class="form_label">Your name</label>
+                  <input id="l-name" name="name" type="text" class="form_input" placeholder="Margaret Holdsworth" autocomplete="name" required>
+                </div>
+                <div class="form_field">
+                  <label for="l-contact" class="form_label">Email or phone</label>
+                  <input id="l-contact" name="contact" type="text" class="form_input" placeholder="you@example.co.nz" required>
+                </div>
+              </div>
+              <div class="form_field">
+                <span class="form_label">Are you the owner?</span>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="owner" value="sole" required> <span>Yes, sole owner</span></label>
+                  <label class="radio"><input type="radio" name="owner" value="joint"> <span>Joint owner with a partner or family</span></label>
+                  <label class="radio"><input type="radio" name="owner" value="trust"> <span>Trustee or executor</span></label>
+                  <label class="radio"><input type="radio" name="owner" value="agent"> <span>Acting on the owner's behalf</span></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About the site</legend>
+              <div class="form-row">
+                <div class="form_field">
+                  <label for="l-address" class="form_label">Street address or legal description</label>
+                  <input id="l-address" name="address" type="text" class="form_input" placeholder="42 Wigram Road, Halswell" required>
+                </div>
+                <div class="form_field">
+                  <label for="l-size" class="form_label">Site size (m²)</label>
+                  <input id="l-size" name="size" type="text" class="form_input" placeholder="683">
+                </div>
+              </div>
+              <div class="form_field">
+                <span class="form_label">Existing dwelling?</span>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="dwelling" value="none"> <span>Bare land</span></label>
+                  <label class="radio"><input type="radio" name="dwelling" value="keep"> <span>Yes, we'd keep it</span></label>
+                  <label class="radio"><input type="radio" name="dwelling" value="demo"> <span>Yes, but happy to demolish</span></label>
+                </div>
+              </div>
+              <div class="form_field">
+                <label for="l-zone" class="form_label">Zoning (if known)</label>
+                <input id="l-zone" name="zone" type="text" class="form_input" placeholder="Residential Suburban Density Transition · MRZ">
+              </div>
+            </fieldset>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About what you want</legend>
+              <div class="form_field">
+                <span class="form_label">What outcome are you after?</span>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="outcome" value="sell"> <span>Sell the land</span></label>
+                  <label class="radio"><input type="radio" name="outcome" value="develop"> <span>Develop with BF and receive completed units</span></label>
+                  <label class="radio"><input type="radio" name="outcome" value="open"> <span>Open to either</span></label>
+                </div>
+              </div>
+              <div class="form_field">
+                <label for="l-notes" class="form_label">Anything else worth knowing</label>
+                <textarea id="l-notes" name="notes" class="form_textarea" placeholder="Heritage listing, neighbour relations, planned street widening…"></textarea>
+              </div>
+            </fieldset>
+
+            <div class="lead-form_submit">
+              <button type="submit" class="button">Request an assessment <i data-lucide="arrow-right" class="button_icon" aria-hidden="true"></i></button>
+              <p class="form_note">No charge. No obligation. We sign an NDA before site visits if you'd like one.</p>
+            </div>
+
+            <div id="land-form-success" class="lead-form_success" hidden role="status">
+              <strong>Thanks.</strong> We'll be in touch within five working days, and your assessment will follow within ten.
+            </div>
+          </form>
+
+          <aside class="lead-form_aside" aria-label="What you get back">
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">What you get back</div>
+              <p class="form_note" style="margin-top: 0.5rem;">A one-page written feasibility note covering:</p>
+              <ul class="comparison_list" style="margin-top: 1rem;">
+                <li>Indicative number of units the site supports</li>
+                <li>Likely consent path and risks</li>
+                <li>Build cost range</li>
+                <li>Comparable sales or rental yield</li>
+                <li>Whether BF would buy, partner, or pass</li>
+              </ul>
+            </div>
+            <hr class="divider">
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Turnaround</div>
+              <div class="contact_block-value">10 working days from form receipt</div>
+            </div>
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Confidentiality</div>
+              <p class="contact_block-value">We sign an NDA on request before any site visit or written assessment.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  
+  </main>
+</body>
+</html>

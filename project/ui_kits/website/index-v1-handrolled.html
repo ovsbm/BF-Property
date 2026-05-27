@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>BF Property — Marketing website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { color-scheme: light; }
+    body { margin: 0; }
+
+    /* --- header --- */
+    .bf-header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bf-cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--bf-dur-base) var(--bf-ease);
+    }
+    .bf-header.scrolled { border-bottom-color: rgba(26,26,26,0.15); }
+    .bf-header-inner {
+      max-width: var(--bf-container);
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .bf-logo { display: flex; align-items: center; height: 28px; }
+    .bf-logo img { height: 28px; width: auto; display: block; }
+    .bf-nav { display: flex; gap: 28px; align-items: center; }
+    .bf-nav a {
+      color: var(--bf-ink); border-bottom: 0;
+      font-size: 15px; line-height: 1; font-weight: 400;
+      padding: 8px 0;
+      position: relative;
+    }
+    .bf-nav a:hover { color: var(--bf-red); }
+    .bf-nav a.active { color: var(--bf-red); }
+    .bf-nav a.active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+      height: 1px; background: var(--bf-red);
+    }
+
+    /* --- buttons --- */
+    .bf-btn {
+      font-family: var(--bf-font); font-weight: 600; font-size: 16px;
+      padding: 1em 1.5em; border-radius: 999px; border: 0; cursor: pointer;
+      line-height: 1; display: inline-flex; align-items: center; gap: 10px;
+      transition: background var(--bf-dur-fast) var(--bf-ease), color var(--bf-dur-fast) var(--bf-ease);
+    }
+    .bf-btn-primary { background: var(--bf-red); color: var(--bf-cream); }
+    .bf-btn-primary:hover { background: var(--bf-red-hover); }
+    .bf-btn-secondary { background: transparent; color: var(--bf-ink); }
+    .bf-btn-secondary:hover { background: var(--bf-red-wash); }
+    .bf-btn-inverse { background: var(--bf-cream); color: var(--bf-ink); }
+    .bf-btn-inverse:hover { background: #fff; }
+    .bf-btn i { width: 18px; height: 18px; }
+
+    /* --- layout --- */
+    .bf-container { max-width: var(--bf-container); margin: 0 auto; padding: 0 32px; }
+    .bf-section { padding: var(--bf-space-20) 0; }
+    .bf-section.tight { padding: var(--bf-space-14) 0; }
+
+    /* --- hero --- */
+    .bf-hero { padding: 96px 0 128px 0; }
+    .bf-hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; align-items: end; }
+    .bf-eyebrow {
+      font-size: 11px; line-height: 1.3; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 600; color: var(--bf-text-muted);
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: var(--bf-space-6);
+    }
+    .bf-eyebrow .dot { width: 8px; height: 8px; background: var(--bf-red); display: inline-block; }
+    .bf-hero h1 {
+      font-size: 90px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400;
+      max-width: 880px;
+    }
+    .bf-hero h1 em { font-style: normal; color: var(--bf-red); }
+    .bf-hero-lead {
+      font-size: 18px; line-height: 1.6; color: var(--bf-text);
+      max-width: 480px; margin-top: var(--bf-space-8);
+    }
+    .bf-hero-ctas { display: flex; gap: 12px; margin-top: var(--bf-space-10); }
+    .bf-hero-meta {
+      border-top: 1px solid rgba(26,26,26,0.15);
+      padding-top: var(--bf-space-6);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .bf-hero-meta .stat { display: flex; align-items: baseline; gap: 16px; }
+    .bf-hero-meta .stat .n { font-size: 32px; line-height: 1.04; letter-spacing: -0.01em; color: var(--bf-ink); min-width: 64px; }
+    .bf-hero-meta .stat .l { font-size: 15px; color: var(--bf-text-muted); line-height: 1.4; }
+
+    /* --- full-bleed image --- */
+    .bf-image-full { width: 100%; }
+    .bf-image-full img { width: 100%; height: auto; display: block; }
+
+    /* --- process --- */
+    .bf-process { background: var(--bf-parchment); }
+    .bf-process-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: var(--bf-space-14); }
+    .bf-process-head h2 { font-size: 45px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; max-width: 640px; }
+    .bf-process-head p { font-size: 18px; line-height: 1.6; color: var(--bf-text-muted); max-width: 360px; margin: 0; }
+    .bf-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(26,26,26,0.15); border: 1px solid rgba(26,26,26,0.15); }
+    .bf-step { background: var(--bf-parchment); padding: 32px; display: flex; flex-direction: column; gap: 16px; min-height: 280px; }
+    .bf-step-n {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-red);
+    }
+    .bf-step h4 { font-size: 22px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 400; }
+    .bf-step p { font-size: 15px; line-height: 1.6; color: var(--bf-text-muted); margin: 0; }
+
+    /* --- projects --- */
+    .bf-projects-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: var(--bf-space-12); }
+    .bf-projects-head h2 { font-size: 45px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; }
+    .bf-project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .bf-project { display: flex; flex-direction: column; gap: 16px; cursor: pointer; }
+    .bf-project-image { aspect-ratio: 4 / 5; overflow: hidden; }
+    .bf-project-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--bf-dur-slow) var(--bf-ease); }
+    .bf-project:hover .bf-project-image img { transform: scale(1.02); }
+    .bf-project-tag {
+      display: inline-block; align-self: flex-start;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      padding: 6px 10px; background: var(--bf-ink); color: var(--bf-cream);
+    }
+    .bf-project-tag.consented { background: var(--bf-red); }
+    .bf-project-tag.handover { background: var(--bf-oxblood); }
+    .bf-project h3 { font-size: 22px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 400; }
+    .bf-project .bf-meta { display: flex; gap: 16px; font-size: 14px; color: var(--bf-text-muted); }
+
+    /* --- signature band --- */
+    .bf-signature {
+      background: var(--bf-parchment); color: var(--bf-ink);
+      padding: 128px 0;
+    }
+    .bf-signature .bf-container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+    .bf-signature h2 {
+      font-size: 90px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; color: var(--bf-cream);
+    }
+    .bf-signature h2 em { font-style: normal; color: var(--bf-cream); opacity: 0.5; display: block; }
+    .bf-signature p {
+      font-size: 18px; line-height: 1.6; color: rgba(241,235,223,0.8); max-width: 420px;
+      margin: 0 0 28px 0;
+    }
+
+    /* --- contact --- */
+    .bf-contact h2 { font-size: 45px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; margin-bottom: var(--bf-space-10); max-width: 640px; }
+    .bf-contact-grid { display: grid; grid-template-columns: 6fr 6fr; gap: 64px; }
+    .bf-form { display: flex; flex-direction: column; gap: 28px; }
+    .bf-field label {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted); display: block; margin-bottom: 6px;
+    }
+    .bf-field input, .bf-field textarea {
+      width: 100%; box-sizing: border-box;
+      background: transparent; border: 0; border-bottom: 1px solid var(--bf-ink);
+      padding: 16px 0; font-family: var(--bf-font); font-size: 16px; color: var(--bf-ink);
+      border-radius: 0; outline: none; line-height: 1.5;
+    }
+    .bf-field input::placeholder, .bf-field textarea::placeholder { color: rgba(26,26,26,0.2); }
+    .bf-field input:focus, .bf-field textarea:focus { border-bottom-width: 2px; padding-bottom: 15px; }
+    .bf-field textarea { resize: vertical; min-height: 100px; }
+
+    .bf-contact-side {
+      border-left: 1px solid rgba(26,26,26,0.15);
+      padding-left: 64px;
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .bf-contact-block .l {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted); margin-bottom: 8px;
+    }
+    .bf-contact-block .v { font-size: 18px; color: var(--bf-ink); line-height: 1.6; }
+    .bf-contact-block a { color: var(--bf-red); border-bottom: 1px solid var(--bf-red); }
+
+    /* --- footer --- */
+    .bf-footer {
+      background: var(--bf-red); color: var(--bf-cream);
+      padding: 96px 0 32px 0;
+    }
+    .bf-footer .bf-container { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    .bf-footer h6 {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: rgba(241,235,223,0.6); margin: 0 0 20px 0;
+    }
+    .bf-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .bf-footer li a {
+      color: var(--bf-cream); border-bottom: 0; font-size: 15px;
+    }
+    .bf-footer li a:hover { color: var(--bf-cream); opacity: 0.7; }
+    .bf-footer .brand .mark {
+      font-size: 32px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; color: var(--bf-cream);
+      margin-bottom: 12px;
+    }
+    .bf-footer .brand p { font-size: 15px; line-height: 1.6; color: rgba(241,235,223,0.7); margin: 0; max-width: 280px; }
+    .bf-footer-base {
+      max-width: var(--bf-container); margin: 80px auto 0; padding: 24px 32px 0;
+      border-top: 1px solid rgba(241,235,223,0.15);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: rgba(241,235,223,0.6);
+    }
+  </style>
+</head>
+<body data-screen-label="01 Homepage">
+
+  <!-- HEADER -->
+  <header class="bf-header" id="hdr">
+    <div class="bf-header-inner">
+      <a href="#" class="bf-logo" style="border:0">
+        <img src="../../assets/logo-bf-property-red.png" alt="BF Property">
+      </a>
+      <nav class="bf-nav">
+        <a href="#" class="active">Home</a>
+        <a href="#process">Process</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="bf-btn bf-btn-primary" style="border:0">Get in touch</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="bf-section bf-hero" data-screen-label="Hero">
+    <div class="bf-container">
+      <div class="bf-eyebrow"><span class="dot"></span> Canterbury · twenty-two years</div>
+      <div class="bf-hero-grid">
+        <div>
+          <h1>You bring the land.<br><em>We bring the rest.</em></h1>
+          <p class="bf-hero-lead">BF Property is a direct-to-client contract developer. We handle site sourcing, planning, consent, design coordination, build and handover. You receive completed, income-producing units.</p>
+          <div class="bf-hero-ctas">
+            <a href="#contact" class="bf-btn bf-btn-primary">Start a conversation <i data-lucide="arrow-right"></i></a>
+            <a href="#process" class="bf-btn bf-btn-secondary">See how it works</a>
+          </div>
+        </div>
+        <div class="bf-hero-meta">
+          <div class="stat"><div class="n">22</div><div class="l">Years building in Canterbury, under buildFIRST and now BF Property.</div></div>
+          <div class="stat"><div class="n">5</div><div class="l">Projects currently in build or design across greater Christchurch.</div></div>
+          <div class="stat"><div class="n">1</div><div class="l">Point of contact from first conversation to handover.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL BLEED IMAGE -->
+  <div class="bf-image-full" data-screen-label="Hero image">
+    <img src="../../assets/exterior-streetview-dusk.jpg" alt="Completed BF Property build, Halswell, dusk">
+  </div>
+
+  <!-- PROCESS -->
+  <section class="bf-section bf-process" id="process" data-screen-label="Process">
+    <div class="bf-container">
+      <div class="bf-process-head">
+        <div>
+          <div class="bf-eyebrow"><span class="dot"></span> What we do</div>
+          <h2>Whole-of-development, end to end. One senior team, one point of contact.</h2>
+        </div>
+        <p>This is the model for clients with capital who want a finished, tenanted asset without running the project themselves.</p>
+      </div>
+      <div class="bf-steps">
+        <div class="bf-step">
+          <div class="bf-step-n">Step 01</div>
+          <h4>Site sourcing and feasibility</h4>
+          <p>We find the land or assess yours. Yield, consent risk, build cost and likely return are sized up before anyone signs anything.</p>
+        </div>
+        <div class="bf-step">
+          <div class="bf-step-n">Step 02</div>
+          <h4>Planning and consent</h4>
+          <p>Architectural coordination, council pre-app, resource and building consent. You see the milestones; we run them.</p>
+        </div>
+        <div class="bf-step">
+          <div class="bf-step-n">Step 03</div>
+          <h4>Build</h4>
+          <p>BF Property holds the head contract. Senior site team on every project. One programme, one budget, one set of variations to review.</p>
+        </div>
+        <div class="bf-step">
+          <div class="bf-step-n">Step 04</div>
+          <h4>Handover</h4>
+          <p>Practical completion, code compliance, defects period. We hand over completed units ready for tenancy or sale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="bf-section" id="projects" data-screen-label="Projects">
+    <div class="bf-container">
+      <div class="bf-projects-head">
+        <div>
+          <div class="bf-eyebrow"><span class="dot"></span> Selected projects</div>
+          <h2>Recent work across Christchurch.</h2>
+        </div>
+        <a href="#" class="bf-btn bf-btn-secondary">All projects <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="bf-project-grid">
+        <article class="bf-project">
+          <div class="bf-project-image"><img src="../../assets/exterior-streetview-dusk.jpg" alt=""></div>
+          <span class="bf-project-tag handover">Handed over</span>
+          <h3>Three-unit townhouse, Halswell</h3>
+          <div class="bf-meta"><span>270 m² site</span><span>Mar 2025</span></div>
+        </article>
+        <article class="bf-project">
+          <div class="bf-project-image"><img src="../../assets/exterior-deck-dusk.jpg" alt=""></div>
+          <span class="bf-project-tag">In build</span>
+          <h3>Two-unit pair, Riccarton</h3>
+          <div class="bf-meta"><span>Income duplex</span><span>Q3 2026</span></div>
+        </article>
+        <article class="bf-project">
+          <div class="bf-project-image"><img src="../../assets/exterior-entry.jpg" alt=""></div>
+          <span class="bf-project-tag consented">Consented</span>
+          <h3>Four-unit terrace, Linwood</h3>
+          <div class="bf-meta"><span>410 m² site</span><span>Starts Aug 2026</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE BAND -->
+  <section class="bf-signature" id="about" data-screen-label="Signature">
+    <div class="bf-container">
+      <h2>We develop. <em>You receive.</em></h2>
+      <div>
+        <p>BF Property is the trading brand of a senior Canterbury build-and-develop team, twenty-two years in the ground. We work with capital, not enthusiasm. The model is simple. The work is not.</p>
+        <a href="#contact" class="bf-btn bf-btn-inverse">Talk to us about a project <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="bf-section bf-contact" id="contact" data-screen-label="Contact">
+    <div class="bf-container">
+      <div class="bf-eyebrow"><span class="dot"></span> Get in touch</div>
+      <h2>Tell us about the site, or what you'd like to build.</h2>
+      <div class="bf-contact-grid">
+        <form class="bf-form" onsubmit="event.preventDefault()">
+          <div class="bf-field">
+            <label for="n">Your name</label>
+            <input id="n" type="text" placeholder="Margaret Holdsworth">
+          </div>
+          <div class="bf-field">
+            <label for="e">Email or phone</label>
+            <input id="e" type="text" placeholder="you@example.co.nz">
+          </div>
+          <div class="bf-field">
+            <label for="s">The site or the idea</label>
+            <textarea id="s" placeholder="A 270 m² corner section in Halswell. Looking at three townhouses."></textarea>
+          </div>
+          <div>
+            <button type="submit" class="bf-btn bf-btn-primary">Start a conversation <i data-lucide="arrow-right"></i></button>
+          </div>
+        </form>
+        <aside class="bf-contact-side">
+          <div class="bf-contact-block">
+            <div class="l">Office</div>
+            <div class="v">Christchurch, Canterbury</div>
+          </div>
+          <div class="bf-contact-block">
+            <div class="l">Email</div>
+            <div class="v"><a href="mailto:justin@buildfirst.co.nz">justin@buildfirst.co.nz</a></div>
+          </div>
+          <div class="bf-contact-block">
+            <div class="l">Phone</div>
+            <div class="v">021 899 345</div>
+          </div>
+          <div class="bf-contact-block">
+            <div class="l">Hours</div>
+            <div class="v">Mon&ndash;Fri, 8am to 5pm</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bf-footer">
+    <div class="bf-container">
+      <div class="brand">
+        <div class="mark">BF Property</div>
+        <p>Canterbury-based direct-to-client contract developer. We develop. You receive.</p>
+      </div>
+      <div>
+        <h6>Company</h6>
+        <ul>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Team</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Contact</h6>
+        <ul>
+          <li><a href="#contact">Get in touch</a></li>
+          <li><a href="mailto:justin@buildfirst.co.nz">justin@buildfirst.co.nz</a></li>
+          <li><a href="tel:021899345">021 899 345</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>Follow</h6>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bf-footer-base">
+      <div>&copy; 2026 BF Property. Twenty-two years building under buildFIRST.</div>
+      <div>Christchurch, NZ</div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    const hdr = document.getElementById('hdr');
+    addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', scrollY > 4);
+    });
+  </script>
+</body>
+</html>

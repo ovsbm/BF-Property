@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>BF Property — Project proposal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    body { margin: 0; background: #C9C2B5; padding: 48px 0; }
+    .page {
+      width: 794px;          /* A4 @ 96dpi width */
+      min-height: 1123px;    /* A4 @ 96dpi height */
+      margin: 0 auto 48px auto;
+      background: var(--bf-parchment);
+      color: var(--bf-ink);
+      box-sizing: border-box;
+      padding: 64px 56px;
+      position: relative;
+      font-family: var(--bf-font);
+    }
+    .page + .page { margin-top: 0; }
+    .page.cover { padding: 56px; background: var(--bf-parchment); display: flex; flex-direction: column; }
+    .page.cream { background: var(--bf-cream); }
+    .page.dark { background: var(--bf-oxblood); color: var(--bf-cream); }
+    .page.ink { background: var(--bf-ink); color: var(--bf-cream); }
+
+    .page-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(26,26,26,0.15);
+      margin-bottom: 40px;
+    }
+    .page.dark .page-head, .page.ink .page-head { border-color: rgba(241,235,223,0.2); }
+    .page-head .mark img { height: 28px; display: block; }
+    .page-head .meta {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted);
+    }
+    .page.dark .page-head .meta, .page.ink .page-head .meta { color: rgba(241,235,223,0.6); }
+
+    .page-foot {
+      position: absolute; left: 56px; right: 56px; bottom: 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted);
+      padding-top: 16px;
+      border-top: 1px solid rgba(26,26,26,0.15);
+    }
+    .page.dark .page-foot, .page.ink .page-foot { color: rgba(241,235,223,0.6); border-color: rgba(241,235,223,0.2); }
+
+    .eyebrow {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted);
+      display: inline-flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    }
+    .eyebrow .dot { width: 8px; height: 8px; background: var(--bf-red); display: inline-block; border-radius: 999px; }
+    .page.dark .eyebrow, .page.ink .eyebrow { color: rgba(241,235,223,0.7); }
+    .page.dark .eyebrow .dot, .page.ink .eyebrow .dot { background: var(--bf-cream); }
+
+    h1 { font-size: 64px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; margin: 0; }
+    h2 { font-size: 36px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; margin: 0 0 24px 0; }
+    h3 { font-size: 22px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 400; margin: 0 0 12px 0; }
+    h4 { font-size: 16px; line-height: 1.3; font-weight: 600; margin: 0 0 8px 0; }
+    p { font-size: 15px; line-height: 1.6; margin: 0 0 16px 0; max-width: 540px; }
+    .page.dark p, .page.ink p { color: rgba(241,235,223,0.85); }
+
+    /* ---------- COVER ---------- */
+    .cover-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+    .cover-head img { height: 64px; width: auto; }
+    .cover-head .ref {
+      text-align: right;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted); line-height: 1.6;
+    }
+    .cover-body { margin-top: auto; }
+    .cover-title { font-size: 64px; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; margin-bottom: 36px; }
+    .cover-title em { font-style: normal; color: var(--bf-red); }
+    .cover-rule { height: 1px; background: rgba(26,26,26,0.15); width: 100%; margin: 28px 0; }
+    .cover-meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+    .cover-meta-grid .l { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--bf-text-muted); margin-bottom: 6px; }
+    .cover-meta-grid .v { font-size: 16px; color: var(--bf-ink); line-height: 1.4; }
+
+    /* ---------- CONTENT BLOCKS ---------- */
+    .lead { font-size: 22px; line-height: 1.5; letter-spacing: -0.005em; max-width: 600px; margin-bottom: 36px; color: var(--bf-ink); }
+    .page.dark .lead, .page.ink .lead { color: var(--bf-cream); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    .num-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(26,26,26,0.15); border-top: 1px solid rgba(26,26,26,0.15); border-bottom: 1px solid rgba(26,26,26,0.15); margin: 28px 0; }
+    .num-cell { background: var(--bf-parchment); padding: 24px 20px; }
+    .num-cell .n { font-size: 45px; line-height: 1.04; letter-spacing: -0.01em; }
+    .num-cell .l { font-size: 13px; color: var(--bf-text-muted); line-height: 1.5; margin-top: 6px; max-width: 180px; }
+
+    .scope-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .scope-table th, .scope-table td {
+      text-align: left; padding: 14px 0;
+      border-bottom: 1px solid rgba(26,26,26,0.15);
+      font-size: 14px; line-height: 1.5;
+    }
+    .scope-table th {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+      color: var(--bf-text-muted);
+      border-bottom: 1px solid var(--bf-ink);
+    }
+    .scope-table td.r { text-align: right; font-variant-numeric: tabular-nums; }
+    .scope-table tr:last-child td { border-bottom: 0; }
+    .scope-table tr.total td { font-weight: 600; padding-top: 18px; border-top: 1px solid var(--bf-ink); border-bottom: 0; }
+
+    .timeline { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: rgba(241,235,223,0.2); margin-top: 24px; }
+    .tl-cell { background: var(--bf-oxblood); padding: 18px 14px; display: flex; flex-direction: column; gap: 6px; min-height: 130px; }
+    .tl-cell .ph { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: rgba(241,235,223,0.6); }
+    .tl-cell .nm { font-size: 16px; line-height: 1.3; color: var(--bf-cream); }
+    .tl-cell .dt { font-size: 11px; color: rgba(241,235,223,0.6); margin-top: auto; }
+
+    .photo { width: 100%; display: block; }
+
+    .signoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+    .sig-line { border-top: 1px solid var(--bf-ink); padding-top: 12px; }
+    .sig-line .l { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--bf-text-muted); }
+    .sig-line .v { font-size: 15px; margin-top: 6px; color: var(--bf-ink); }
+  </style>
+</head>
+<body>
+
+  <!-- ============ COVER ============ -->
+  <article class="page cover" data-screen-label="01 Cover">
+    <div class="cover-head">
+      <img src="../../assets/logo-bf-property-red.png" alt="BF Property">
+      <div class="ref">
+        Proposal · 26-014<br>
+        Prepared March 2026<br>
+        Confidential
+      </div>
+    </div>
+    <div class="cover-body">
+      <div class="eyebrow"><span class="dot"></span> Proposal for Margaret &amp; David Holdsworth</div>
+      <h1 class="cover-title">Three-unit townhouse<br>development.<br><em>Halswell.</em></h1>
+      <div class="cover-rule"></div>
+      <div class="cover-meta-grid">
+        <div><div class="l">Site</div><div class="v">42 Wigram Road, Halswell</div></div>
+        <div><div class="l">Site area</div><div class="v">683 m²</div></div>
+        <div><div class="l">Indicative timeline</div><div class="v">14 months, consent to handover</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ EXECUTIVE SUMMARY ============ -->
+  <article class="page" data-screen-label="02 Summary">
+    <div class="page-head">
+      <div class="mark"><img src="../../assets/logo-bf-property-red.png" alt=""></div>
+      <div class="meta">Proposal 26-014 · Summary</div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span> Section one · summary</div>
+    <h2>What we propose to build,<br>and what you receive.</h2>
+
+    <p class="lead">Three two-storey townhouses on your Halswell site. Three-bedroom, single-garage. Brick, lightweight cladding, long-run roof. Built to RVA Lifemark 4-star, suited to long-term tenancy or staggered sale.</p>
+
+    <div class="num-grid">
+      <div class="num-cell"><div class="n">3</div><div class="l">Three-bedroom townhouses on the site, sharing party walls.</div></div>
+      <div class="num-cell"><div class="n">14</div><div class="l">Months from signed contract to handover of the third unit.</div></div>
+      <div class="num-cell"><div class="n">1</div><div class="l">Senior project lead from this office, on site every fortnight.</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h4>What BF Property handles</h4>
+        <p>Resource consent, building consent, architectural and engineering coordination, head contract, all subtrades, council inspections, code of compliance, defects period.</p>
+      </div>
+      <div>
+        <h4>What you handle</h4>
+        <p>Approve the design at three gates. Approve variations above the agreed contingency. Sign at handover. That is the full extent of your time on this.</p>
+      </div>
+    </div>
+
+    <div class="page-foot"><div>BF Property · 22 years building in Canterbury</div><div>02</div></div>
+  </article>
+
+  <!-- ============ PHOTO PAGE ============ -->
+  <article class="page" style="padding: 0; display: flex; flex-direction: column;" data-screen-label="03 Reference">
+    <img class="photo" src="../../assets/exterior-streetview-dusk.jpg" style="height: 60%; object-fit: cover;">
+    <div style="padding: 36px 56px 32px;">
+      <div class="eyebrow"><span class="dot"></span> Reference build · Riccarton, 2024</div>
+      <h3>The Riccarton four-unit terrace, completed November 2024. Comparable typology and material palette to what we propose for Halswell.</h3>
+      <p style="margin-top: 16px; color: var(--bf-text-muted); max-width: 540px;">Brick and lightweight cladding, double-glazed joinery, long-run roof. Body corporate handed over to owner-occupiers in March 2025.</p>
+    </div>
+    <div class="page-foot"><div>BF Property · Reference build</div><div>03</div></div>
+  </article>
+
+  <!-- ============ SCOPE & FEE ============ -->
+  <article class="page" data-screen-label="04 Scope & fee">
+    <div class="page-head">
+      <div class="mark"><img src="../../assets/logo-bf-property-red.png" alt=""></div>
+      <div class="meta">Proposal 26-014 · Scope &amp; fee</div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span> Section two · scope</div>
+    <h2>Indicative scope and fee.</h2>
+    <p>Indicative figures, fixed-price contract issued after consent. Excludes GST. All figures NZD.</p>
+
+    <table class="scope-table">
+      <thead>
+        <tr><th>Phase</th><th>Inclusions</th><th class="r">Indicative</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Design &amp; consent</td><td>Architectural, engineering, council fees, resource and building consent.</td><td class="r">$96,000</td></tr>
+        <tr><td>Site &amp; civils</td><td>Demolition, services, drainage, retaining, driveway.</td><td class="r">$184,000</td></tr>
+        <tr><td>Build · structure</td><td>Foundation, framing, roof, weathertightness, joinery.</td><td class="r">$612,000</td></tr>
+        <tr><td>Build · interior</td><td>Linings, kitchens, bathrooms, finishes, fitout.</td><td class="r">$498,000</td></tr>
+        <tr><td>Landscaping &amp; handover</td><td>Driveway sealing, planting, fencing, CCC, defects.</td><td class="r">$78,000</td></tr>
+        <tr class="total"><td>Total</td><td>Three units, handed over.</td><td class="r">$1,468,000</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 28px; color: var(--bf-text-muted);">Yield on completed value, based on current Halswell three-bedroom rents, sits between 4.6 and 5.1 percent gross. Sale appraisal range supplied separately.</p>
+
+    <div class="page-foot"><div>Indicative · subject to detailed design</div><div>04</div></div>
+  </article>
+
+  <!-- ============ TIMELINE (oxblood) ============ -->
+  <article class="page dark" data-screen-label="05 Timeline">
+    <div class="page-head">
+      <div class="mark"><img src="../../assets/logo-bf-property-cream.png" alt="BF Property"></div>
+      <div class="meta">Proposal 26-014 · Timeline</div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span> Section three · timeline</div>
+    <h2 style="color: var(--bf-cream);">Fourteen months,<br>consent to handover.</h2>
+
+    <p style="color: rgba(241,235,223,0.85);">A typical Canterbury three-unit programme, padded for winter. Milestones are tracked weekly and reported to you fortnightly. No surprises.</p>
+
+    <div class="timeline">
+      <div class="tl-cell"><div class="ph">Phase 01</div><div class="nm">Design lock</div><div class="dt">Apr 2026</div></div>
+      <div class="tl-cell"><div class="ph">Phase 02</div><div class="nm">Consent lodged</div><div class="dt">May 2026</div></div>
+      <div class="tl-cell"><div class="ph">Phase 03</div><div class="nm">Site start</div><div class="dt">Aug 2026</div></div>
+      <div class="tl-cell"><div class="ph">Phase 04</div><div class="nm">Closed in</div><div class="dt">Nov 2026</div></div>
+      <div class="tl-cell"><div class="ph">Phase 05</div><div class="nm">Fit-out</div><div class="dt">Mar 2027</div></div>
+      <div class="tl-cell"><div class="ph">Phase 06</div><div class="nm">Handover</div><div class="dt">Jun 2027</div></div>
+    </div>
+
+    <p style="margin-top: 36px; color: rgba(241,235,223,0.85); max-width: 540px;">Three approval gates only: design lock, consent lodgement, pre-line walk-through. Beyond those, your involvement is opt-in.</p>
+
+    <div class="page-foot"><div>Programme · indicative</div><div>05</div></div>
+  </article>
+
+  <!-- ============ NEXT STEPS / SIGN ============ -->
+  <article class="page" data-screen-label="06 Next steps">
+    <div class="page-head">
+      <div class="mark"><img src="../../assets/logo-bf-property-red.png" alt=""></div>
+      <div class="meta">Proposal 26-014 · Next steps</div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span> Section four · next steps</div>
+    <h2>Two ways forward.</h2>
+
+    <div class="grid-2">
+      <div style="background: var(--bf-oxblood); color: var(--bf-cream); padding: 28px; border-radius: 16px;">
+        <h4 style="color: var(--bf-cream);">One. Feasibility deposit · $4,500</h4>
+        <p style="color: rgba(241,235,223,0.85);">We engage architect and engineer to detailed concept. Council pre-app. Refined fixed-price quote within six weeks. Deposit credited against build if you proceed.</p>
+      </div>
+      <div style="background: var(--bf-red); color: var(--bf-cream); padding: 28px; border-radius: 16px;">
+        <h4 style="color: var(--bf-cream);">Two. Sign the head contract</h4>
+        <p style="color: rgba(241,235,223,0.85);">If the indicative figures and timeline above sit comfortably, we move straight to head contract and design-and-build. Fastest path to consent.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 36px;">Whichever you choose, the first step is a one-hour conversation with Justin Thornley (Managing Director) at our St Albans office. Tea provided. Bring questions.</p>
+
+    <div class="signoff-grid">
+      <div class="sig-line">
+        <div class="l">Signed for BF Property</div>
+        <div class="v" style="font-style: italic; opacity: 0.6;">Justin Thornley, Managing Director</div>
+      </div>
+      <div class="sig-line">
+        <div class="l">Signed for the client</div>
+        <div class="v" style="opacity: 0.4;">_______________________</div>
+      </div>
+    </div>
+
+    <div class="page-foot"><div>justin@buildfirst.co.nz · 021 899 345</div><div>06</div></div>
+  </article>
+
+</body>
+</html>

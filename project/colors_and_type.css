@@ -1,0 +1,190 @@
+/* =============================================================
+   BF Property — Foundations
+   Colors + type + spacing as CSS custom properties
+   Pair with: fonts/Inter-VariableFont_opsz_wght.ttf
+   ============================================================= */
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ----- COLOR TOKENS (raw) ---------------------------------- */
+  /* Six brand colours, locked May 2026. */
+  --bf-parchment:       #F8F6F2;   /* DEFAULT page surface */
+  --bf-cream:           #F1EBDF;   /* differentiation — used sparingly on cards / grounding moments */
+  --bf-cream-warm:      #E8E1D3;   /* deepest neutral — rare, used sparingly */
+  --bf-ink:             #1A1A1A;   /* primary body text */
+  --bf-ink-muted:       rgba(26, 26, 26, 0.6);   /* secondary text, captions */
+  --bf-ink-faint:       rgba(26, 26, 26, 0.2);   /* placeholder, hairlines */
+
+  --bf-red:             #BD1E1E;   /* ACTIVE ACCENT — primary buttons, links, brand */
+  --bf-red-hover:       #D42424;   /* hover only */
+  --bf-red-wash:        rgba(189, 30, 30, 0.10);   /* secondary button hover */
+
+  --bf-oxblood:         #2A0200;   /* reserved deep accent — rare moments only (footer is RED, not oxblood) */
+  --bf-oxblood-hover:   #4B0300;   /* hover for the reserved oxblood accent */
+
+  /* ----- SEMANTIC SURFACES ----------------------------------- */
+  --bf-surface:           var(--bf-parchment);        /* default page bg — lightest neutral */
+  --bf-surface-alt:       var(--bf-cream);            /* DIFFERENTIATION — cream sections / cards */
+  --bf-surface-deep:      var(--bf-cream-warm);       /* deep neutral, used sparingly */
+  --bf-surface-parchment: var(--bf-parchment);        /* explicit alias */
+  --bf-surface-cream:     var(--bf-cream);            /* explicit alias for the cream differentiator */
+  --bf-surface-inverse:   var(--bf-ink);              /* dark hero blocks */
+  --bf-surface-accent:    var(--bf-red);              /* primary accent + FOOTER surface */
+  --bf-surface-gravity:   var(--bf-oxblood);          /* reserved deep accent — rare */
+
+  --bf-text:              var(--bf-ink);
+  --bf-text-muted:        var(--bf-ink-muted);
+  --bf-text-on-accent:    var(--bf-cream);
+  --bf-text-on-gravity:   var(--bf-cream);
+  --bf-text-on-inverse:   var(--bf-cream);
+
+  --bf-link:              var(--bf-red);
+  --bf-link-hover:        var(--bf-red-hover);
+  --bf-rule:              rgba(26, 26, 26, 0.15);    /* hairline dividers */
+
+  /* ----- TYPE ------------------------------------------------- */
+  --bf-font:              "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bf-weight-regular:    400;   /* the system weight for ALL headings */
+  --bf-weight-semibold:   600;   /* buttons, semibold runs inside body */
+
+  /* Heading sizes (desktop) */
+  --bf-h0:   128px;   /* campaign hero only */
+  --bf-h1:    90px;   /* one per page maximum */
+  --bf-h2:    45px;   /* section titles */
+  --bf-h3:    32px;   /* component-level */
+  --bf-h4:    22px;   /* card titles, panel headings */
+  --bf-h5:    16px;   /* rare structural labels */
+  --bf-h6:    11px;   /* uppercase eyebrow */
+
+  /* Body sizes */
+  --bf-text-xxl:  32px;
+  --bf-text-xl:   24px;
+  --bf-text-lg:   18px;   /* prefer for primary body — older audience */
+  --bf-text-md:   16px;   /* default */
+  --bf-text-sm:   14px;   /* minimum */
+
+  /* Line heights / tracking */
+  --bf-lh-tight:  1.04;   /* H0–H3 */
+  --bf-lh-snug:   1.3;    /* H4–H6 */
+  --bf-lh-body:   1.6;    /* body — NON-NEGOTIABLE */
+
+  --bf-track-tight:    -0.01em;   /* H0–H4 */
+  --bf-track-default:   0em;      /* H5, body */
+  --bf-track-eyebrow:   0.1em;    /* H6 uppercase */
+
+  /* ----- SPACING (8px base) ---------------------------------- */
+  --bf-space-1:   4px;
+  --bf-space-2:   8px;
+  --bf-space-3:  12px;
+  --bf-space-4:  16px;
+  --bf-space-5:  20px;
+  --bf-space-6:  24px;
+  --bf-space-7:  28px;
+  --bf-space-8:  32px;
+  --bf-space-10: 48px;
+  --bf-space-12: 64px;
+  --bf-space-14: 80px;
+  --bf-space-16: 96px;
+  --bf-space-18: 112px;
+  --bf-space-20: 128px;   /* default section vertical padding */
+
+  /* ----- LAYOUT ---------------------------------------------- */
+  --bf-container:     1280px;     /* max page width */
+  --bf-reading:        640px;     /* editorial reading column */
+
+  /* ----- RADII ----------------------------------------------- */
+  /* Pill-leaning scale. The brand has shifted away from strict square.
+     Pill is the default for tags + buttons; cards take a medium radius;
+     zero is reserved for full-bleed photography and architectural moments. */
+  --bf-radius-0:        0;          /* reserved — full-bleed sections, photo crops */
+  --bf-radius-sm:       8px;        /* inline elements, small chips */
+  --bf-radius-md:       16px;       /* cards, panels, larger containers */
+  --bf-radius-lg:       28px;       /* compact pill buttons, soft hero cards */
+  --bf-radius-pill:     999px;      /* DEFAULT for buttons and tags */
+
+  /* ----- MOTION ---------------------------------------------- */
+  --bf-ease:        cubic-bezier(0.4, 0.0, 0.2, 1);
+  --bf-dur-fast:    120ms;
+  --bf-dur-base:    180ms;
+  --bf-dur-slow:    320ms;
+}
+
+/* =============================================================
+   SEMANTIC ELEMENT STYLES
+   Apply by including this file and using normal HTML elements,
+   or by composing the classes below.
+   ============================================================= */
+
+html, body {
+  background: var(--bf-surface);
+  color: var(--bf-text);
+  font-family: var(--bf-font);
+  font-weight: var(--bf-weight-regular);
+  font-size: var(--bf-text-md);
+  line-height: var(--bf-lh-body);
+  letter-spacing: var(--bf-track-default);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.bf-h0, .bf-h1, .bf-h2, .bf-h3, .bf-h4, .bf-h5, .bf-h6 {
+  font-family: var(--bf-font);
+  font-weight: var(--bf-weight-regular);   /* 400 default — bold allowed where emphasis earns it */
+  color: var(--bf-text);
+  margin: 0;
+}
+
+.bf-h0 { font-size: var(--bf-h0); line-height: var(--bf-lh-tight); letter-spacing: var(--bf-track-tight); }
+.bf-h1, h1 { font-size: var(--bf-h1); line-height: var(--bf-lh-tight); letter-spacing: var(--bf-track-tight); }
+.bf-h2, h2 { font-size: var(--bf-h2); line-height: var(--bf-lh-tight); letter-spacing: var(--bf-track-tight); }
+.bf-h3, h3 { font-size: var(--bf-h3); line-height: var(--bf-lh-tight); letter-spacing: var(--bf-track-tight); }
+.bf-h4, h4 { font-size: var(--bf-h4); line-height: var(--bf-lh-snug);  letter-spacing: var(--bf-track-tight); }
+.bf-h5, h5 { font-size: var(--bf-h5); line-height: var(--bf-lh-snug);  letter-spacing: var(--bf-track-default); }
+.bf-h6, h6 {
+  font-size: var(--bf-h6);
+  line-height: var(--bf-lh-snug);
+  letter-spacing: var(--bf-track-eyebrow);
+  text-transform: uppercase;
+  font-weight: var(--bf-weight-semibold);
+  color: var(--bf-text-muted);
+}
+
+p { margin: 0 0 1em 0; line-height: var(--bf-lh-body); }
+.bf-text-xxl { font-size: var(--bf-text-xxl); line-height: 1.35; }
+.bf-text-xl  { font-size: var(--bf-text-xl);  line-height: 1.45; }
+.bf-text-lg  { font-size: var(--bf-text-lg);  line-height: var(--bf-lh-body); }
+.bf-text-md  { font-size: var(--bf-text-md);  line-height: var(--bf-lh-body); }
+.bf-text-sm  { font-size: var(--bf-text-sm);  line-height: var(--bf-lh-body); }
+.bf-muted    { color: var(--bf-text-muted); }
+
+a, .bf-link {
+  color: var(--bf-link);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: color var(--bf-dur-fast) var(--bf-ease);
+}
+a:hover, .bf-link:hover { color: var(--bf-link-hover); }
+
+hr, .bf-rule {
+  border: 0;
+  border-top: 1px solid var(--bf-rule);
+  margin: var(--bf-space-8) 0;
+}
+
+::selection { background: var(--bf-red); color: var(--bf-cream); }

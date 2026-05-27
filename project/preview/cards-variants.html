@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Card variants</title><link rel="stylesheet" href="_card.css"><style>
+  body{height:440px;}
+  .row-label { font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:rgba(26,26,26,0.6);margin-bottom:8px; }
+  .row-label.on-dark { color:rgba(241,235,223,0.7); }
+  .grid { display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
+  .surface { padding:18px; border-radius: 16px; }
+  .surface.parchment { background:#F8F6F2; border:1px solid rgba(26,26,26,0.08); }
+  .surface.red       { background:#BD1E1E; }
+  .card-tile { padding:18px; min-height:104px; border-radius:16px; }
+  .card-tile .l { font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:6px; }
+  .card-tile .h { font-size:16px;line-height:1.3;letter-spacing:-0.005em; }
+</style></head><body><div class="card" style="padding:24px">
+  <div class="meta" style="margin-bottom:14px">Card variants — contrast with surface, never blend with it</div>
+
+  <!-- ROW 1: NEUTRAL SURFACE → ACCENT/INVERSE CARDS -->
+  <div class="row-label">On neutral surfaces (parchment), use accent or inverse cards</div>
+  <div class="surface parchment" style="margin-bottom:18px">
+    <div class="grid">
+      <div class="card-tile" style="background:#BD1E1E;color:#F1EBDF">
+        <div class="l" style="color:rgba(241,235,223,0.7)">Accent primary</div>
+        <div class="h">Red, cream text</div>
+      </div>
+      <div class="card-tile" style="background:#2A0200;color:#F1EBDF">
+        <div class="l" style="color:rgba(241,235,223,0.7)">Accent secondary</div>
+        <div class="h">Oxblood, cream text</div>
+      </div>
+      <div class="card-tile" style="background:#1A1A1A;color:#F1EBDF">
+        <div class="l" style="color:rgba(241,235,223,0.6)">Inverse</div>
+        <div class="h">Ink, cream text</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: ACCENT/INVERSE SURFACE → NEUTRAL CARDS -->
+  <div class="row-label">On accent or inverse surfaces (red shown), use neutral cards</div>
+  <div class="surface red">
+    <div class="grid">
+      <div class="card-tile" style="background:#F8F6F2;color:#1A1A1A">
+        <div class="l" style="color:rgba(26,26,26,0.6)">Parchment</div>
+        <div class="h">Parchment, ink text</div>
+      </div>
+      <div class="card-tile" style="background:#F1EBDF;color:#1A1A1A">
+        <div class="l" style="color:rgba(26,26,26,0.6)">Cream</div>
+        <div class="h">Cream, ink text</div>
+      </div>
+      <div class="card-tile" style="background:#E8E1D3;color:#1A1A1A">
+        <div class="l" style="color:rgba(26,26,26,0.6)">Warm cream</div>
+        <div class="h">Warm cream, ink text · rare</div>
+      </div>
+    </div>
+  </div>
+</div></body></html>

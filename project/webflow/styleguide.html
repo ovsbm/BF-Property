@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>BF Property — Style guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="flowkit-tokens.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <style>
+    /* ============================================================
+       Style-guide chrome — these classes do NOT ship to Webflow.
+       Everything BF-branded uses Flowkit-v2 tokens from
+       flowkit-tokens.css so changes in Webflow's Variables panel
+       propagate here in one motion.
+       ============================================================ */
+    body { padding-bottom: 6rem; }
+
+    .sg-page { max-width: 80rem; margin-inline: auto; padding: 4rem 2rem; }
+
+    /* Big hero header */
+    .sg-hero { margin-bottom: 5rem; padding-bottom: 4rem; border-bottom: 1px solid var(--border_subtle); }
+    .sg-hero h1 { font-size: 5.625rem; line-height: 1.04; letter-spacing: -0.01em; margin: 0 0 1.5rem 0; font-weight: 400; }
+    .sg-hero p { font-size: 1.125rem; line-height: 1.6; color: var(--text_secondary); margin: 0; max-width: 40rem; }
+
+    /* Mega tier — Foundations / Components */
+    .sg-tier { padding: 4rem 0 2rem; }
+    .sg-tier-head { display: flex; align-items: baseline; gap: 2rem; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color_ink); }
+    .sg-tier-head h2 { font-size: 3.5rem; line-height: 1.04; letter-spacing: -0.01em; margin: 0; font-weight: 400; }
+    .sg-tier-head .meta { font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); }
+
+    /* Sub-section */
+    .sg-section { padding: 3rem 0 4rem; border-top: 1px solid var(--border_subtle); }
+    .sg-section:first-of-type { border-top: 0; padding-top: 0; }
+    .sg-section-head { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 2rem; }
+    .sg-section-head h3 { font-size: 2rem; line-height: 1.04; letter-spacing: -0.01em; font-weight: 400; margin: 0; }
+    .sg-section-head .num { font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); font-variant-numeric: tabular-nums; }
+    .sg-section-head .var { margin-left: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; color: var(--text_secondary); }
+    .sg-section > .sg-lede { max-width: 40rem; color: var(--text_secondary); margin: 0 0 2rem; line-height: 1.6; }
+
+    /* Variable mapping row — "click this swatch in Webflow Variables panel" */
+    .sg-row { display: grid; grid-template-columns: 1fr 22rem; gap: 2rem; align-items: stretch; margin-bottom: 1.5rem; }
+    .sg-row.stack { grid-template-columns: 1fr; }
+    .sg-row .preview {
+      padding: 2rem; background: var(--background_primary);
+      border: 1px solid var(--border_subtle);
+      min-height: 6rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .sg-row .preview.tight { padding: 1rem 1.25rem; }
+    .sg-row .preview.column { flex-direction: column; align-items: flex-start; }
+    .sg-row .preview.cream { background: var(--background_secondary); }
+    .sg-row .preview.warm { background: var(--background_tertiary); }
+    .sg-row .preview.ox { background: var(--background_accent-secondary); }
+    .sg-row .preview.red { background: var(--background_accent-primary); }
+    .sg-row .preview.ink { background: var(--background_inverse); }
+
+    .sg-code {
+      padding: 1.25rem 1.25rem; background: var(--background_inverse); color: var(--color_cream-70);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.8125rem; line-height: 1.6;
+      white-space: pre-wrap; overflow-x: auto;
+      border: 1px solid var(--background_inverse);
+    }
+    .sg-code .k { color: var(--color_red); }
+    .sg-code .v { color: var(--color_cream); }
+    .sg-code .c { color: var(--color_cream-20); font-style: italic; }
+    .sg-code .h { color: var(--color_cream); font-weight: 600; display: block; margin-bottom: 0.5rem; }
+
+    /* Token grid */
+    .sg-token-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border_subtle); border: 1px solid var(--border_subtle); }
+    .sg-token-grid > div { background: var(--background_primary); padding: 0.875rem 1.25rem; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+    .sg-token-grid .name { font-family: ui-monospace, monospace; font-size: 0.8125rem; color: var(--text_primary); }
+    .sg-token-grid .val { font-family: ui-monospace, monospace; font-size: 0.8125rem; color: var(--text_secondary); font-variant-numeric: tabular-nums; }
+
+    /* Color swatches — the headline foundations row */
+    .sg-palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+    .sg-sw {
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 1.25rem; min-height: 12rem;
+      border: 1px solid var(--border_subtle);
+    }
+    .sg-sw .top { font-family: ui-monospace, monospace; font-size: 0.75rem; opacity: 0.7; }
+    .sg-sw .name { font-size: 1.375rem; line-height: 1.2; letter-spacing: -0.01em; }
+    .sg-sw .hex { font-family: ui-monospace, monospace; font-size: 0.8125rem; margin-top: 0.25rem; opacity: 0.7; }
+
+    /* Class chip */
+    .sg-class {
+      display: inline-block;
+      font-family: ui-monospace, monospace; font-size: 0.75rem;
+      background: var(--color_red); color: var(--color_cream);
+      padding: 0.125rem 0.375rem; border-radius: 0;
+      margin-right: 0.375rem;
+    }
+    .sg-varname {
+      display: inline-block; font-family: ui-monospace, monospace;
+      font-size: 0.75rem; color: var(--text_secondary);
+      padding: 0.125rem 0;
+    }
+
+    /* Note callout */
+    .sg-note {
+      background: var(--background_secondary);
+      padding: 1rem 1.25rem;
+      border-left: 4px solid var(--color_red);
+      font-size: 0.875rem; line-height: 1.6;
+      max-width: 50rem;
+    }
+
+    /* Type specimen — heading-on-body lockups in colored cards */
+    .sg-type-pairs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .sg-type-pair { padding: 2rem; min-height: 12rem; }
+    .sg-type-pair h4 { font-size: 1.75rem; line-height: 1.04; letter-spacing: -0.01em; margin: 0 0 0.5rem 0; font-weight: 400; }
+    .sg-type-pair p { font-size: 0.9375rem; line-height: 1.6; margin: 0; max-width: 20rem; }
+    .sg-type-pair .lbl { font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 1.25rem; opacity: 0.7; font-family: ui-monospace, monospace; }
+    .sg-type-pair.parchment { background: var(--background_primary); color: var(--text_primary); border: 1px solid var(--border_subtle); }
+    .sg-type-pair.cream { background: var(--background_secondary); color: var(--text_primary); }
+    .sg-type-pair.warm { background: var(--background_tertiary); color: var(--text_primary); }
+    .sg-type-pair.red { background: var(--background_accent-primary); color: var(--color_cream); }
+    .sg-type-pair.ox { background: var(--background_accent-secondary); color: var(--color_cream); }
+    .sg-type-pair.ink { background: var(--background_inverse); color: var(--color_cream); }
+
+    /* Logo grid */
+    .sg-logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+    .sg-logo-cell { padding: 2rem; min-height: 9rem; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+    .sg-logo-cell .lbl { font-family: ui-monospace, monospace; font-size: 0.75rem; opacity: 0.7; }
+    .sg-logo-cell.parchment { background: var(--background_primary); border: 1px solid var(--border_subtle); }
+    .sg-logo-cell.cream { background: var(--background_secondary); }
+    .sg-logo-cell.red { background: var(--background_accent-primary); }
+    .sg-logo-cell.ox { background: var(--background_accent-secondary); }
+    .sg-logo-cell.ink { background: var(--background_inverse); }
+
+    /* Spacing scale visual */
+    .sg-space-row { display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-space-bar { display: flex; align-items: center; gap: 1rem; }
+    .sg-space-bar .bar { background: var(--color_red); height: 1.25rem; }
+    .sg-space-bar .lbl { font-family: ui-monospace, monospace; font-size: 0.8125rem; color: var(--text_primary); min-width: 14rem; }
+    .sg-space-bar .val { font-family: ui-monospace, monospace; font-size: 0.8125rem; color: var(--text_secondary); }
+
+    /* Type scale visual */
+    .sg-scale-row { display: flex; flex-direction: column; gap: 1.5rem; }
+    .sg-scale-row .item { display: grid; grid-template-columns: 6rem 1fr 10rem; gap: 1.5rem; align-items: baseline; padding: 0.75rem 0; border-top: 1px solid var(--border_subtle); }
+    .sg-scale-row .item:first-child { border-top: 0; }
+    .sg-scale-row .item .vname { font-family: ui-monospace, monospace; font-size: 0.75rem; color: var(--text_secondary); }
+    .sg-scale-row .item .vmeta { font-family: ui-monospace, monospace; font-size: 0.75rem; color: var(--text_secondary); text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Card grid */
+    .sg-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+    /* Banner for the "components" tier headline */
+    .sg-banner { padding: 2.5rem 2rem; background: var(--background_accent-secondary); color: var(--color_cream); margin-bottom: 2rem; }
+    .sg-banner h2 { color: var(--color_cream); }
+  </style>
+</head>
+<body data-screen-label="Style guide">
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <main id="main" class="sg-page">
+
+    <!-- ============ HERO ============ -->
+    <header class="sg-hero">
+      <div class="eyebrow" style="margin-bottom: 1.5rem;"><span class="eyebrow_dot"></span> Webflow build · Flowkit v2 · May 2026</div>
+      <h1>BF Property style guide.</h1>
+      <p>The source of truth for the Webflow build. Every value on this page maps to a variable in the Webflow Variables panel; change a token there and this page flips with it. Build this guide first; every other page reuses what's here.</p>
+    </header>
+
+    <!-- ===========================================================
+         TIER 1 · FOUNDATIONS
+         =========================================================== -->
+    <section class="sg-tier" aria-labelledby="foundations-head">
+      <div class="sg-tier-head"><h2 id="foundations-head">Foundations.</h2><span class="meta">Tokens · brand mark · type · scale</span></div>
+
+      <!-- ============ F1 · COLOR ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F1</span><h3>Colour</h3><span class="var">Variables · Colors</span></div>
+        <p class="sg-lede">Six locked colours. Parchment is the default page surface; cream is the differentiator (used sparingly on cards). Bright red is the active accent and the footer surface. Oxblood is reserved as a deep accent. Ink is body copy.</p>
+
+        <div class="sg-palette">
+          <div class="sg-sw" style="background: var(--color_parchment); color: var(--text_primary);">
+            <div class="top">color_parchment</div>
+            <div><div class="name">Parchment</div><div class="hex">#F8F6F2</div></div>
+          </div>
+          <div class="sg-sw" style="background: var(--color_cream); color: var(--text_primary);">
+            <div class="top">color_cream</div>
+            <div><div class="name">Cream</div><div class="hex">#F1EBDF</div></div>
+          </div>
+          <div class="sg-sw" style="background: var(--color_cream-warm); color: var(--text_primary);">
+            <div class="top">color_cream-warm</div>
+            <div><div class="name">Warm cream</div><div class="hex">#E8E1D3</div></div>
+          </div>
+          <div class="sg-sw" style="background: var(--color_red); color: var(--color_cream); border-color: transparent;">
+            <div class="top">color_red</div>
+            <div><div class="name">BF Red</div><div class="hex">#BD1E1E</div></div>
+          </div>
+          <div class="sg-sw" style="background: var(--color_oxblood); color: var(--color_cream); border-color: transparent;">
+            <div class="top">color_oxblood</div>
+            <div><div class="name">Oxblood</div><div class="hex">#2A0200</div></div>
+          </div>
+          <div class="sg-sw" style="background: var(--color_ink); color: var(--color_cream); border-color: transparent;">
+            <div class="top">color_ink</div>
+            <div><div class="name">Ink</div><div class="hex">#1A1A1A</div></div>
+          </div>
+        </div>
+
+        <div class="sg-row">
+          <div class="sg-token-grid" style="grid-template-columns: 1fr 1fr;">
+            <div><span class="name">background_primary</span><span class="val">color_parchment · default page</span></div>
+            <div><span class="name">background_secondary</span><span class="val">color_cream · differentiation</span></div>
+            <div><span class="name">background_tertiary</span><span class="val">color_cream-warm · deep neutral</span></div>
+            <div><span class="name">background_accent-primary</span><span class="val">color_red · emphasis + footer</span></div>
+            <div><span class="name">background_accent-secondary</span><span class="val">color_oxblood · deep accent (reserved)</span></div>
+            <div><span class="name">background_inverse</span><span class="val">color_ink · feature only</span></div>
+            <div><span class="name">text_primary</span><span class="val">color_ink</span></div>
+            <div><span class="name">text_secondary</span><span class="val">color_ink @ 60%</span></div>
+            <div><span class="name">link</span><span class="val">color_red</span></div>
+            <div><span class="name">link-hover</span><span class="val">color_red-hover · #D42424</span></div>
+            <div><span class="name">border_subtle</span><span class="val">color_ink @ 15%</span></div>
+            <div><span class="name">border_strong</span><span class="val">color_ink</span></div>
+          </div>
+          <div class="sg-code"><span class="h">/* Semantic aliases */</span><span class="c">Components consume the
+semantic names, not the
+raw primitives. Re-skinning
+the whole brand is a
+six-variable change.</span></div>
+        </div>
+
+        <div class="sg-note" style="margin-top: 1.5rem;">No <code>background_white</code> token exists by design. Replace any default-white usage with <code>background_primary</code> (parchment). Cream is the differentiation surface — use it for sections and cards that need to stand apart from the page floor.</div>
+      </section>
+
+      <!-- ============ F2 · BRAND MARK ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F2</span><h3>Brand mark</h3><span class="var">assets/logo-bf-property-*.png · assets/monogram-*.png</span></div>
+        <p class="sg-lede">Wordmark for navigation and header use. Monogram for favicon, app icon, social avatar, and any single-glyph use.</p>
+
+        <h4 style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); margin: 0 0 1rem;">Wordmark · four lockups</h4>
+        <div class="sg-logo-grid" style="margin-bottom: 1.5rem;">
+          <div class="sg-logo-cell parchment">
+            <img src="../assets/logo-bf-property-red.png" alt="BF Property" style="height: 2.5rem; width: auto;">
+            <div class="lbl">red on parchment</div>
+          </div>
+          <div class="sg-logo-cell cream">
+            <img src="../assets/logo-bf-property-red.png" alt="BF Property" style="height: 2.5rem; width: auto;">
+            <div class="lbl">red on cream</div>
+          </div>
+          <div class="sg-logo-cell red">
+            <img src="../assets/logo-bf-property-cream.png" alt="BF Property" style="height: 2.5rem; width: auto;">
+            <div class="lbl" style="color: var(--color_cream); opacity: 0.7;">cream on red</div>
+          </div>
+          <div class="sg-logo-cell ox">
+            <img src="../assets/logo-bf-property-cream.png" alt="BF Property" style="height: 2.5rem; width: auto;">
+            <div class="lbl" style="color: var(--color_cream); opacity: 0.7;">cream on oxblood</div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); margin: 0 0 1rem;">Monogram · favicon, app icon, avatar</h4>
+        <div class="sg-logo-grid">
+          <div class="sg-logo-cell parchment">
+            <img src="../assets/monogram-red.png" alt="BF" style="height: 4rem; width: auto;">
+            <div class="lbl">red on parchment</div>
+          </div>
+          <div class="sg-logo-cell red">
+            <img src="../assets/monogram-cream.png" alt="BF" style="height: 4rem; width: auto;">
+            <div class="lbl" style="color: var(--color_cream); opacity: 0.7;">cream on red</div>
+          </div>
+          <div class="sg-logo-cell ox">
+            <img src="../assets/monogram-cream.png" alt="BF" style="height: 4rem; width: auto;">
+            <div class="lbl" style="color: var(--color_cream); opacity: 0.7;">cream on oxblood</div>
+          </div>
+          <div class="sg-logo-cell ink">
+            <img src="../assets/monogram-cream.png" alt="BF" style="height: 4rem; width: auto;">
+            <div class="lbl" style="color: var(--color_cream); opacity: 0.7;">cream on ink</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ F3 · TYPE PAIRINGS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F3</span><h3>Type pairings</h3><span class="var">heading_h4 · text_medium · line-height_body</span></div>
+        <p class="sg-lede">Heading on body, across the six surfaces. Inter Regular 400 is the default — bold (600–700) is allowed where emphasis earns it.</p>
+
+        <div class="sg-type-pairs">
+          <div class="sg-type-pair parchment">
+            <div class="lbl">background_primary</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+          <div class="sg-type-pair cream">
+            <div class="lbl">background_secondary</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+          <div class="sg-type-pair warm">
+            <div class="lbl">background_tertiary</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+          <div class="sg-type-pair red">
+            <div class="lbl">background_accent-primary</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+          <div class="sg-type-pair ox">
+            <div class="lbl">background_accent-secondary</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+          <div class="sg-type-pair ink">
+            <div class="lbl">background_inverse</div>
+            <h4>Headings on body.</h4>
+            <p>Twenty-two years of building in Canterbury. Senior team on every project.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ F4 · TYPE SCALE ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F4</span><h3>Type scale</h3><span class="var">heading_* · text_* · line-height_*</span></div>
+        <p class="sg-lede">Style HTML tags first in Webflow Site Settings (All H1 / H2 / Body) — then add classes only where the element customises the default. Unstyled CMS content then renders correctly with no class.</p>
+
+        <div class="sg-scale-row" style="margin-bottom: 2rem;">
+          <div class="item"><span class="vname">heading_h1</span><h1 style="margin: 0;">You bring the land</h1><span class="vmeta">5.625rem · 90px / 1.04</span></div>
+          <div class="item"><span class="vname">heading_h2</span><h2 style="margin: 0;">We bring the rest</h2><span class="vmeta">2.8125rem · 45px / 1.04</span></div>
+          <div class="item"><span class="vname">heading_h3</span><h3 style="margin: 0;">Consent through handover</h3><span class="vmeta">2rem · 32px / 1.04</span></div>
+          <div class="item"><span class="vname">heading_h4</span><h4 style="margin: 0;">Senior team on every project</h4><span class="vmeta">1.375rem · 22px / 1.3</span></div>
+          <div class="item"><span class="vname">heading_h5</span><h5 style="margin: 0;">Structural label</h5><span class="vmeta">1rem · 16px / 1.3</span></div>
+          <div class="item"><span class="vname">heading_h6</span><h6 style="margin: 0;">Eyebrow above heading</h6><span class="vmeta">0.6875rem · 11px / 1.3</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview column" style="gap: 0.875rem;">
+            <div class="text_xxlarge">Editorial pull-quote scale.</div>
+            <div class="text_xlarge">Lead paragraph scale, used at the top of long sections.</div>
+            <div class="text_large">Preferred body scale. The audience is 50–70; this is the read floor.</div>
+            <div class="text_medium">Default body and form control size.</div>
+            <div class="text_small">Minimum size. Captions, metadata, footnotes.</div>
+          </div>
+          <div class="sg-code"><span class="h">Body scale utilities</span><span class="k">.text_xxlarge</span>   <span class="v">2rem    · 32px</span>
+<span class="k">.text_xlarge</span>    <span class="v">1.5rem  · 24px</span>
+<span class="k">.text_large</span>     <span class="v">1.125rem · 18px</span>
+<span class="k">.text_medium</span>    <span class="v">1rem    · 16px</span>
+<span class="k">.text_small</span>     <span class="v">0.875rem · 14px</span>
+<span class="c">/* line-height_body: 1.6
+   non-negotiable */</span></div>
+        </div>
+
+        <div class="sg-note" style="margin-top: 1.5rem;">Heading default is Inter Regular <strong>400</strong>; bold (<strong>600–700</strong>) is allowed where emphasis earns it. Body line-height is <strong>1.6</strong>, non-negotiable — the audience is older and reads with care. Tracking: <code>-0.01em</code> on H0–H4, <code>0</code> on H5/body, <code>+0.1em</code> on H6 uppercase eyebrow.</div>
+      </section>
+
+      <!-- ============ F5 · SIZE / SPACING ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F5</span><h3>Size · T-shirt scale</h3><span class="var">size_xxsmall → size_xxlarge</span></div>
+        <p class="sg-lede">Single scale used for every padding, gap, margin, and radius utility. Seven steps — that's it.</p>
+
+        <div class="sg-space-row" style="margin-bottom: 2rem;">
+          <div class="sg-space-bar"><div class="lbl">size_xxsmall</div><div class="bar" style="width: 0.25rem;"></div><div class="val">0.25rem · 4px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_xsmall</div><div class="bar" style="width: 0.5rem;"></div><div class="val">0.5rem · 8px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_small</div><div class="bar" style="width: 1rem;"></div><div class="val">1rem · 16px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_medium</div><div class="bar" style="width: 2rem;"></div><div class="val">2rem · 32px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_large</div><div class="bar" style="width: 3rem;"></div><div class="val">3rem · 48px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_xlarge</div><div class="bar" style="width: 5rem;"></div><div class="val">5rem · 80px</div></div>
+          <div class="sg-space-bar"><div class="lbl">size_xxlarge</div><div class="bar" style="width: 8rem;"></div><div class="val">8rem · 128px · default section</div></div>
+        </div>
+
+        <div class="sg-token-grid" style="grid-template-columns: 1fr 1fr;">
+          <div><span class="name">container_small</span><span class="val">40rem · 640px · reading column</span></div>
+          <div><span class="name">container_medium</span><span class="val">60rem · 960px</span></div>
+          <div><span class="name">container_large</span><span class="val">80rem · 1280px · default</span></div>
+          <div><span class="name">container_xlarge</span><span class="val">90rem · 1440px</span></div>
+          <div><span class="name">radius_none</span><span class="val">0 · reserved, full-bleed only</span></div>
+          <div><span class="name">radius_small</span><span class="val">8px · inline elements, chips</span></div>
+          <div><span class="name">radius_medium</span><span class="val">16px · cards (default)</span></div>
+          <div><span class="name">radius_large</span><span class="val">28px · compact pill buttons</span></div>
+          <div><span class="name">radius_full</span><span class="val">999px · buttons + tags (default)</span></div>
+        </div>
+      </section>
+
+      <!-- ============ F6 · MOTION ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">F6</span><h3>Motion</h3><span class="var">duration_* · easing_standard · ix_*</span></div>
+        <p class="sg-lede">Conservative. Three durations, one easing curve. Used to confirm an interaction, never to entertain.</p>
+
+        <div class="sg-token-grid" style="grid-template-columns: 1fr 1fr;">
+          <div><span class="name">duration_fast</span><span class="val">120ms · hover state</span></div>
+          <div><span class="name">duration_base</span><span class="val">180ms · button press</span></div>
+          <div><span class="name">duration_slow</span><span class="val">320ms · panel slide</span></div>
+          <div><span class="name">easing_standard</span><span class="val">cubic-bezier(.4 0 .2 1)</span></div>
+          <div><span class="name">ix_nav-shrink</span><span class="val">scroll &gt; 4px · nav hairline</span></div>
+          <div><span class="name">ix_image-zoom-hover</span><span class="val">hover · scale 1.02 / 320ms</span></div>
+          <div><span class="name">ix_button-tap</span><span class="val">press · translateY 1px</span></div>
+          <div><span class="name">prefers-reduced-motion</span><span class="val">respected · CSS already</span></div>
+        </div>
+
+        <div class="sg-note" style="margin-top: 1.5rem;">No section-scroll-in. No parallax. No reveal-on-scroll. The audience reads on their own time.</div>
+      </section>
+    </section>
+
+    <!-- ===========================================================
+         TIER 2 · COMPONENTS
+         =========================================================== -->
+    <section class="sg-tier" aria-labelledby="components-head">
+      <div class="sg-tier-head"><h2 id="components-head">Components.</h2><span class="meta">Buttons · cards · forms · nav · tags · sections</span></div>
+
+      <!-- ============ C1 · BUTTONS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C1</span><h3>Button</h3><span class="var">.button · is-* · on-*</span></div>
+        <p class="sg-lede">Two-button system. Primary is red on parchment / cream / warm. Inside coloured sections, swap to <code>on-accent-primary</code>, <code>on-accent-secondary</code>, or <code>on-inverse</code> so the buttons read on cream.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 0.75rem;">
+            <button class="button">Start a conversation <i data-lucide="arrow-right" class="button_icon"></i></button>
+            <button class="button is-secondary">View projects</button>
+            <button class="button is-small">Read more</button>
+            <button class="button" disabled>Disabled</button>
+          </div>
+          <div class="sg-code"><span class="h">On parchment / cream</span><span class="k">.button</span>                <span class="c">/* primary CTA */</span>
+<span class="k">.button.is-secondary</span>
+<span class="k">.button.is-small</span>
+<span class="k">.button[disabled]</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview red">
+            <button class="button on-accent-primary">Get in touch</button>
+            <button class="button is-secondary on-accent-primary">Tell me more</button>
+          </div>
+          <div class="sg-code"><span class="h">Inside red section</span><span class="k">.button.on-accent-primary</span>
+<span class="k">.button.is-secondary.on-accent-primary</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview ox">
+            <button class="button on-accent-secondary">Talk to us about a project</button>
+            <button class="button is-secondary on-accent-secondary">Read process</button>
+          </div>
+          <div class="sg-code"><span class="h">Inside oxblood section</span><span class="k">.button.on-accent-secondary</span>
+<span class="k">.button.is-secondary.on-accent-secondary</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview ink">
+            <button class="button on-inverse">Open project</button>
+            <button class="button is-secondary on-inverse">View detail</button>
+          </div>
+          <div class="sg-code"><span class="h">Inside ink section</span><span class="k">.button.on-inverse</span>
+<span class="k">.button.is-secondary.on-inverse</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C2 · EYEBROW / TEXT-LINK ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C2</span><h3>Eyebrow &amp; text-link</h3><span class="var">.eyebrow · .eyebrow_dot · .text-link</span></div>
+
+        <div class="sg-row">
+          <div class="preview column">
+            <div class="eyebrow"><span class="eyebrow_dot"></span> Section label on parchment</div>
+          </div>
+          <div class="sg-code"><span class="k">.eyebrow</span>
+  <span class="k">.eyebrow_dot</span>  <span class="c">/* nested part */</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview ox column">
+            <div class="eyebrow on-accent-secondary"><span class="eyebrow_dot"></span> Section label on oxblood</div>
+          </div>
+          <div class="sg-code"><span class="k">.eyebrow.on-accent-secondary</span>
+<span class="k">.eyebrow.on-inverse</span>
+<span class="k">.eyebrow.on-accent-primary</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview" style="display: block;">
+            <p class="text_large" style="margin: 0;">Body copy with a <a href="#" class="text-link">primary text link</a> mid-sentence. The colour stays red and the rule stays under it.</p>
+          </div>
+          <div class="sg-code"><span class="k">.text-link</span>
+<span class="k">.text-link.on-accent-secondary</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C3 · CARDS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C3</span><h3>Card</h3><span class="var">.card · is-* · on-*</span></div>
+        <p class="sg-lede"><strong>Contrast rule.</strong> A card must contrast with the surface behind it, never blend. On a neutral surface use an accent or inverse card; on an accent or inverse surface use a neutral card.</p>
+
+        <h4 style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); margin: 0 0 1rem;">On a neutral surface (parchment) — use accent or inverse cards</h4>
+        <div class="sg-row stack" style="margin-bottom: 0.5rem;">
+          <div class="sg-card-grid">
+            <article class="card is-accent-primary">
+              <div class="eyebrow on-accent-primary"><span class="eyebrow_dot"></span> Accent primary</div>
+              <h4 style="color: var(--color_cream);">Bright red</h4>
+              <p style="margin: 0; color: var(--color_cream-70);">Emphasis card.</p>
+            </article>
+            <article class="card is-accent-secondary">
+              <div class="eyebrow on-accent-secondary"><span class="eyebrow_dot"></span> Accent secondary</div>
+              <h4 style="color: var(--color_cream);">Oxblood</h4>
+              <p style="margin: 0; color: var(--color_cream-70);">Reserved deep accent.</p>
+            </article>
+            <article class="card is-inverse">
+              <div class="eyebrow on-inverse"><span class="eyebrow_dot"></span> Inverse</div>
+              <h4 style="color: var(--color_cream);">Ink</h4>
+              <p style="margin: 0; color: var(--color_cream-70);">Feature card.</p>
+            </article>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--text_secondary); margin: 2rem 0 1rem;">On an accent / inverse surface (red shown) — use neutral cards</h4>
+        <div class="sg-row stack" style="margin-bottom: 0.5rem;">
+          <div style="padding: 1.5rem; background: var(--background_accent-primary); border-radius: var(--radius_medium);">
+            <div class="sg-card-grid">
+              <article class="card">
+                <div class="eyebrow"><span class="eyebrow_dot"></span> Primary</div>
+                <h4>Parchment</h4>
+                <p style="margin: 0; color: var(--text_secondary);">Default neutral card.</p>
+              </article>
+              <article class="card is-secondary">
+                <div class="eyebrow"><span class="eyebrow_dot"></span> Secondary</div>
+                <h4>Cream</h4>
+                <p style="margin: 0; color: var(--text_secondary);">Differentiation neutral.</p>
+              </article>
+              <article class="card is-tertiary">
+                <div class="eyebrow"><span class="eyebrow_dot"></span> Tertiary</div>
+                <h4>Warm cream</h4>
+                <p style="margin: 0; color: var(--text_secondary);">Deepest neutral — used sparingly.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-row" style="margin-top: 1.5rem;">
+          <div class="preview">
+            <article class="card is-small is-bordered" style="max-width: 18rem;">
+              <h5 style="margin: 0;">Tighter padding</h5>
+              <p style="margin: 0; color: var(--text_secondary); font-size: 0.875rem;">is-small reduces internal padding to 16px.</p>
+            </article>
+          </div>
+          <div class="sg-code"><span class="k">.card</span>                  <span class="c">/* base */</span>
+<span class="k">.card.is-bordered</span>
+<span class="k">.card.is-secondary</span>     <span class="c">/* cream */</span>
+<span class="k">.card.is-tertiary</span>      <span class="c">/* warm cream */</span>
+<span class="k">.card.is-accent-primary</span>
+<span class="k">.card.is-accent-secondary</span>
+<span class="k">.card.is-inverse</span>
+<span class="k">.card.is-small</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C4 · TAGS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C4</span><h3>Tag · project status</h3><span class="var">.tag · is-* · radius_full</span></div>
+        <p class="sg-lede">Tags use pill radius — the one sanctioned exception to the system-wide square rule. The shape distinguishes a status pill from content.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 0.5rem;">
+            <span class="tag">In build</span>
+            <span class="tag is-accent-primary">Consented</span>
+            <span class="tag is-accent-secondary">Handed over</span>
+            <span class="tag is-secondary">Site sourcing</span>
+            <span class="tag is-outline">In design</span>
+          </div>
+          <div class="sg-code"><span class="k">.tag</span>                   <span class="c">/* ink base */</span>
+<span class="k">.tag.is-accent-primary</span>  <span class="c">/* red */</span>
+<span class="k">.tag.is-accent-secondary</span> <span class="c">/* oxblood */</span>
+<span class="k">.tag.is-secondary</span>        <span class="c">/* cream */</span>
+<span class="k">.tag.is-outline</span>          <span class="c">/* outline */</span>
+<span class="c">/* border-radius: var(--radius_full) */</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C5 · FORMS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C5</span><h3>Form · underline inputs</h3><span class="var">.form_field · .form_label · .form_input</span></div>
+        <p class="sg-lede">Underline only — never boxed. Transparent background, 1px ink bottom border. Focus intensifies the underline to 2px.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="display: block;">
+            <div class="form_field" style="margin-bottom: 1.5rem;">
+              <label for="sg-name" class="form_label">Your name</label>
+              <input id="sg-name" type="text" class="form_input" value="Margaret Holdsworth">
+            </div>
+            <div class="form_field" style="margin-bottom: 1.5rem;">
+              <label for="sg-email" class="form_label">Email</label>
+              <input id="sg-email" type="email" class="form_input" placeholder="you@example.co.nz">
+            </div>
+            <div class="form_field">
+              <label for="sg-site" class="form_label">About the site</label>
+              <textarea id="sg-site" class="form_textarea" placeholder="270 m² corner section, Halswell"></textarea>
+            </div>
+          </div>
+          <div class="sg-code"><span class="k">.form_field</span>
+  <span class="k">.form_label</span>
+  <span class="k">.form_input</span>
+  <span class="k">.form_textarea</span>
+<span class="c">/* Underline only. No outer box.
+   Focus: border-bottom 1px → 2px */</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C6 · NAV ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C6</span><h3>Nav</h3><span class="var">.nav · .nav_container · .nav_link</span></div>
+
+        <div class="sg-row stack">
+          <div class="preview tight" style="padding: 0; border: 1px solid var(--border_subtle); align-items: stretch; display: block;">
+            <header class="nav" style="position: relative;">
+              <div class="nav_container">
+                <a href="#" class="nav_logo" aria-label="BF Property home">
+                  <img src="../assets/logo-bf-property-red.png" alt="BF Property">
+                </a>
+                <nav aria-label="Primary" style="display: contents;">
+                  <ul class="nav_links" role="list" style="list-style: none; margin: 0; padding: 0;">
+                    <li><a href="#" class="nav_link is-current">Home</a></li>
+                    <li><a href="#" class="nav_link">Process</a></li>
+                    <li><a href="#" class="nav_link">Projects</a></li>
+                    <li><a href="#" class="nav_link">About</a></li>
+                    <li><a href="#" class="nav_link">Contact</a></li>
+                  </ul>
+                </nav>
+                <a href="#" class="button">Get in touch</a>
+              </div>
+            </header>
+          </div>
+          <div class="sg-code"><span class="k">.nav</span>
+  <span class="k">.nav_container</span>
+    <span class="k">.nav_logo</span>
+    <span class="k">.nav_links</span>
+      <span class="k">.nav_link</span>
+      <span class="k">.nav_link.is-current</span>
+    <span class="k">.button</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C7 · IMAGE ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C7</span><h3>Image</h3><span class="var">.image_wrap · .image_full · .image_cover</span></div>
+        <p class="sg-lede">Images take the system's medium radius by default. Use <code>is-square</code> for full-bleed photography where the building reads as architecture; <code>is-pill</code> only on supporting illustration.</p>
+
+        <div class="sg-row stack">
+          <div class="sg-card-grid">
+            <figure style="margin: 0;">
+              <div class="image_wrap aspect-4x3">
+                <img src="../assets/exterior-streetview-dusk.jpg" alt="Riccarton three-unit, dusk">
+              </div>
+              <figcaption class="image_caption">Riccarton, Mar 2025 · handover</figcaption>
+            </figure>
+            <figure style="margin: 0;">
+              <div class="image_wrap is-square aspect-4x3">
+                <img src="../assets/exterior-deck-dusk.jpg" alt="Halswell three-unit deck, dusk">
+              </div>
+              <figcaption class="image_caption"><code>is-square</code> · full-bleed / architectural</figcaption>
+            </figure>
+            <figure style="margin: 0;">
+              <div class="image_wrap aspect-1x1">
+                <img src="../assets/interior-bathroom.jpg" alt="Interior detail">
+              </div>
+              <figcaption class="image_caption"><code>aspect-1x1</code> · square crop</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="sg-row" style="margin-top: 1.5rem;">
+          <div class="preview" style="display: block;">
+            <div class="image_wrap aspect-16x9" style="max-width: 28rem;">
+              <img src="../assets/exterior-entry.jpg" alt="Entry detail">
+            </div>
+          </div>
+          <div class="sg-code"><span class="h">Aspect ratios</span><span class="k">.image_wrap.aspect-16x9</span>
+<span class="k">.image_wrap.aspect-4x3</span>
+<span class="k">.image_wrap.aspect-3x2</span>
+<span class="k">.image_wrap.aspect-1x1</span>
+
+<span class="h">Radius variants</span><span class="k">.image_wrap</span>            <span class="c">/* 16px default */</span>
+<span class="k">.image_wrap.is-square</span>  <span class="c">/* 0 — full-bleed */</span>
+<span class="k">.image_wrap.is-pill</span>    <span class="c">/* 999px */</span>
+
+<span class="h">Caption</span><span class="k">.image_caption</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C8 · AVATAR ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C8</span><h3>Avatar</h3><span class="var">.avatar · .avatar_group · is-*</span></div>
+        <p class="sg-lede">Circular initials or photo crop. Used for team profiles, comment authors, project leads. Sizes from xs to xl on the T-shirt scale.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 0.75rem;">
+            <span class="avatar is-small">BF</span>
+            <span class="avatar">MH</span>
+            <span class="avatar is-large">JR</span>
+            <span class="avatar is-xlarge">OP</span>
+          </div>
+          <div class="sg-code"><span class="h">Size scale (initials)</span><span class="k">.avatar.is-small</span>   <span class="v">28px</span>
+<span class="k">.avatar</span>            <span class="v">40px · default</span>
+<span class="k">.avatar.is-large</span>   <span class="v">56px</span>
+<span class="k">.avatar.is-xlarge</span>  <span class="v">80px</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 0.75rem;">
+            <span class="avatar is-large is-accent-primary">BF</span>
+            <span class="avatar is-large is-accent-secondary">OP</span>
+            <span class="avatar is-large is-inverse">JR</span>
+            <span class="avatar is-large"><img src="../assets/exterior-entry.jpg" alt=""></span>
+          </div>
+          <div class="sg-code"><span class="h">Surface + photo variants</span><span class="k">.avatar.is-accent-primary</span>
+<span class="k">.avatar.is-accent-secondary</span>
+<span class="k">.avatar.is-inverse</span>
+<span class="k">.avatar &gt; img</span>             <span class="c">/* photo crop */</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview">
+            <div class="avatar_group">
+              <span class="avatar is-accent-primary">JR</span>
+              <span class="avatar is-accent-secondary">OP</span>
+              <span class="avatar is-inverse">MH</span>
+              <span class="avatar">BF</span>
+            </div>
+          </div>
+          <div class="sg-code"><span class="h">Stacked group</span><span class="k">.avatar_group</span>
+  <span class="k">.avatar</span>
+  <span class="k">.avatar</span>
+  <span class="k">.avatar</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C9 · ICON ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C9</span><h3>Icon</h3><span class="var">.icon · is-* · on-*</span></div>
+        <p class="sg-lede">Lucide working set. Stroke 1.5px, square line caps, square joins. Default 20px; inline with 16px body, use 18px. Icons are structural, not decorative.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 1.25rem; align-items: center;">
+            <i data-lucide="arrow-right" class="icon is-xsmall"></i>
+            <i data-lucide="arrow-right" class="icon is-small"></i>
+            <i data-lucide="arrow-right" class="icon"></i>
+            <i data-lucide="arrow-right" class="icon is-large"></i>
+            <i data-lucide="arrow-right" class="icon is-xlarge"></i>
+          </div>
+          <div class="sg-code"><span class="h">Size scale</span><span class="k">.icon.is-xsmall</span>  <span class="v">14px</span>
+<span class="k">.icon.is-small</span>   <span class="v">16px</span>
+<span class="k">.icon</span>            <span class="v">20px · default</span>
+<span class="k">.icon.is-large</span>   <span class="v">28px</span>
+<span class="k">.icon.is-xlarge</span>  <span class="v">40px</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 1.5rem; align-items: center;">
+            <i data-lucide="phone" class="icon"></i>
+            <i data-lucide="mail" class="icon"></i>
+            <i data-lucide="map-pin" class="icon"></i>
+            <i data-lucide="hammer" class="icon"></i>
+            <i data-lucide="file-text" class="icon"></i>
+            <i data-lucide="arrow-up-right" class="icon"></i>
+            <i data-lucide="chevron-down" class="icon"></i>
+            <i data-lucide="check" class="icon is-accent-primary"></i>
+          </div>
+          <div class="sg-code"><span class="h">Working set · Lucide</span><span class="c">/* Where icons earn their place:
+   nav · breadcrumbs · form state
+   social links · table-row meta */</span>
+<span class="k">phone · mail · map-pin</span>
+<span class="k">hammer · file-text</span>
+<span class="k">arrow-right · arrow-up-right</span>
+<span class="k">chevron-down · check · x</span></div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview ox" style="gap: 1.5rem; align-items: center;">
+            <i data-lucide="at-sign" class="icon on-accent-secondary"></i>
+            <i data-lucide="message-square" class="icon on-accent-secondary"></i>
+            <i data-lucide="link" class="icon on-accent-secondary"></i>
+            <i data-lucide="mail" class="icon on-accent-secondary is-large"></i>
+          </div>
+          <div class="sg-code"><span class="h">On coloured surface</span><span class="k">.icon.on-accent-primary</span>
+<span class="k">.icon.on-accent-secondary</span>
+<span class="k">.icon.on-inverse</span>
+<span class="c">/* For Instagram, Facebook,
+   LinkedIn marks: ship the
+   official brand SVG, not a
+   Lucide glyph. */</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C10 · TABS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C10</span><h3>Tabs</h3><span class="var">.tabs · .tabs_list · .tabs_trigger · .tabs_panel</span></div>
+        <p class="sg-lede">Underline-active pattern. The active trigger gets a 2px red underline; the inactive list sits on a 1px ink-at-15% baseline.</p>
+
+        <div class="sg-row stack">
+          <div class="preview" style="display: block;">
+            <div class="tabs" data-sg-tabs>
+              <div class="tabs_list" role="tablist">
+                <button role="tab" class="tabs_trigger is-active" data-tab="design" aria-selected="true">Design</button>
+                <button role="tab" class="tabs_trigger" data-tab="consent" aria-selected="false">Consent</button>
+                <button role="tab" class="tabs_trigger" data-tab="build" aria-selected="false">Build</button>
+                <button role="tab" class="tabs_trigger" data-tab="handover" aria-selected="false">Handover</button>
+              </div>
+              <div class="tabs_panel" data-tab-panel="design">
+                <p class="text_large" style="margin: 0; max-width: 40rem;">We coordinate architect, engineer, surveyor, and council. You sign off the drawings before consent.</p>
+              </div>
+              <div class="tabs_panel" data-tab-panel="consent" hidden>
+                <p class="text_large" style="margin: 0; max-width: 40rem;">Resource and building consent lodged and managed end to end. Typical Canterbury timeline: 60–90 working days.</p>
+              </div>
+              <div class="tabs_panel" data-tab-panel="build" hidden>
+                <p class="text_large" style="margin: 0; max-width: 40rem;">Senior team on site every day. Weekly written update; monthly on-site walk-through if you want one.</p>
+              </div>
+              <div class="tabs_panel" data-tab-panel="handover" hidden>
+                <p class="text_large" style="margin: 0; max-width: 40rem;">CCC, code of compliance, defects period, and the keys. You receive completed units.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-code"><span class="h">Class structure</span><span class="k">.tabs</span>
+  <span class="k">.tabs_list</span>
+    <span class="k">.tabs_trigger</span>
+    <span class="k">.tabs_trigger.is-active</span>
+  <span class="k">.tabs_panel</span>           <span class="c">/* shown */</span>
+  <span class="k">.tabs_panel[hidden]</span>   <span class="c">/* hidden */</span></div>
+      </section>
+
+      <!-- ============ C11 · SLIDER ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C11</span><h3>Slider</h3><span class="var">.slider · .slider_track · .slider_button · .slider_dot</span></div>
+        <p class="sg-lede">Project gallery component. Prev / next buttons sit beneath the viewport — pill (999px) buttons consistent with the rest of the system.</p>
+
+        <div class="sg-row stack">
+          <div class="preview" style="display: block; padding: 0; border: 0;">
+            <div class="slider" data-sg-slider>
+              <div class="slider_viewport">
+                <div class="slider_track" data-slider-track>
+                  <div class="slider_slide">
+                    <figure style="margin: 0;">
+                      <div class="image_wrap aspect-16x9">
+                        <img src="../assets/exterior-streetview-dusk.jpg" alt="Riccarton three-unit">
+                      </div>
+                      <figcaption class="image_caption">01 · Riccarton, three-unit · Mar 2025 handover</figcaption>
+                    </figure>
+                  </div>
+                  <div class="slider_slide">
+                    <figure style="margin: 0;">
+                      <div class="image_wrap aspect-16x9">
+                        <img src="../assets/exterior-deck-dusk.jpg" alt="Halswell deck">
+                      </div>
+                      <figcaption class="image_caption">02 · Halswell · rear deck and façade</figcaption>
+                    </figure>
+                  </div>
+                  <div class="slider_slide">
+                    <figure style="margin: 0;">
+                      <div class="image_wrap aspect-16x9">
+                        <img src="../assets/exterior-entry.jpg" alt="Entry detail">
+                      </div>
+                      <figcaption class="image_caption">03 · Entry detail · cedar and aluminium joinery</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+              <div class="slider_controls">
+                <div class="slider_dots" data-slider-dots>
+                  <button class="slider_dot is-active" data-slider-go="0" aria-label="Slide 1"></button>
+                  <button class="slider_dot" data-slider-go="1" aria-label="Slide 2"></button>
+                  <button class="slider_dot" data-slider-go="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="slider_nav">
+                  <button class="slider_button" data-slider-prev aria-label="Previous"><i data-lucide="arrow-left" class="icon"></i></button>
+                  <button class="slider_button" data-slider-next aria-label="Next"><i data-lucide="arrow-right" class="icon"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-code"><span class="h">Class structure</span><span class="k">.slider</span>
+  <span class="k">.slider_viewport</span>
+    <span class="k">.slider_track</span>
+      <span class="k">.slider_slide</span>
+  <span class="k">.slider_controls</span>
+    <span class="k">.slider_dots</span>
+      <span class="k">.slider_dot.is-active</span>
+    <span class="k">.slider_nav</span>
+      <span class="k">.slider_button</span></div>
+      </section>
+
+      <!-- ============ C12 · ACCORDION ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C12</span><h3>Accordion</h3><span class="var">.accordion · .accordion_item · is-open</span></div>
+        <p class="sg-lede">FAQ pattern. Hairline-divided rows; the indicator collapses from plus to minus on open. Trigger uses heading_h4 sizing.</p>
+
+        <div class="sg-row stack">
+          <div class="preview" style="display: block; padding: 0; border: 0;">
+            <div class="accordion" data-sg-accordion>
+              <div class="accordion_item is-open">
+                <button class="accordion_trigger" aria-expanded="true">
+                  <span>What does BF Property actually do?</span>
+                  <span class="accordion_indicator" aria-hidden="true"></span>
+                </button>
+                <div class="accordion_content">
+                  <p style="margin: 0;">We handle the residential development process for clients with capital. Site sourcing, planning, consent, design coordination, build, and handover. You receive completed units.</p>
+                </div>
+              </div>
+              <div class="accordion_item">
+                <button class="accordion_trigger" aria-expanded="false">
+                  <span>Where do you work?</span>
+                  <span class="accordion_indicator" aria-hidden="true"></span>
+                </button>
+                <div class="accordion_content">
+                  <p style="margin: 0;">Christchurch and greater Canterbury. Twenty-two years of building in the region.</p>
+                </div>
+              </div>
+              <div class="accordion_item">
+                <button class="accordion_trigger" aria-expanded="false">
+                  <span>What is the indicative timeline?</span>
+                  <span class="accordion_indicator" aria-hidden="true"></span>
+                </button>
+                <div class="accordion_content">
+                  <p style="margin: 0;">Twelve to eighteen months from first conversation to handover, depending on consent and site complexity.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-code"><span class="h">Class structure</span><span class="k">.accordion</span>
+  <span class="k">.accordion_item</span>
+  <span class="k">.accordion_item.is-open</span>
+    <span class="k">.accordion_trigger</span>
+      <span class="k">.accordion_indicator</span>
+    <span class="k">.accordion_content</span></div>
+      </section>
+
+      <!-- ============ C13 · DROPDOWN ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C13</span><h3>Dropdown</h3><span class="var">.dropdown · .dropdown_trigger · .dropdown_menu</span></div>
+        <p class="sg-lede">Pill trigger; menu sits below with hairline border and the system's medium radius. Used for filter / sort / language switchers.</p>
+
+        <div class="sg-row">
+          <div class="preview" style="gap: 1.5rem; min-height: 16rem; align-items: flex-start;">
+            <div class="dropdown" data-sg-dropdown>
+              <button class="dropdown_trigger" aria-expanded="false">
+                <span>Filter projects</span>
+                <i data-lucide="chevron-down" class="icon is-small"></i>
+              </button>
+              <div class="dropdown_menu" hidden>
+                <a href="#" class="dropdown_item is-current">All projects</a>
+                <a href="#" class="dropdown_item">In build</a>
+                <a href="#" class="dropdown_item">Consented</a>
+                <a href="#" class="dropdown_item">Handed over</a>
+                <hr class="dropdown_separator">
+                <a href="#" class="dropdown_item">By location</a>
+                <a href="#" class="dropdown_item">By year</a>
+              </div>
+            </div>
+
+            <div class="dropdown" data-sg-dropdown>
+              <button class="dropdown_trigger" aria-expanded="true">
+                <span>Sort · most recent</span>
+                <i data-lucide="chevron-down" class="icon is-small"></i>
+              </button>
+              <div class="dropdown_menu">
+                <a href="#" class="dropdown_item is-current">Most recent</a>
+                <a href="#" class="dropdown_item">Oldest first</a>
+                <a href="#" class="dropdown_item">A → Z</a>
+              </div>
+            </div>
+          </div>
+          <div class="sg-code"><span class="h">Class structure</span><span class="k">.dropdown</span>
+  <span class="k">.dropdown_trigger</span>
+  <span class="k">.dropdown_menu</span>
+    <span class="k">.dropdown_item</span>
+    <span class="k">.dropdown_item.is-current</span>
+    <span class="k">.dropdown_separator</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C14 · RICH TEXT ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C14</span><h3>Rich text</h3><span class="var">.rich-text</span></div>
+        <p class="sg-lede">A single class on the CMS content wrapper. Every nested element inherits its sizing from the type system — no class needed on individual elements.</p>
+
+        <div class="sg-row stack">
+          <div class="preview" style="display: block;">
+            <div class="rich-text">
+              <h2>You bring the land. We bring the rest.</h2>
+              <p>Twenty-two years of building in Canterbury. Senior team on every project. We handle <a href="#">consent through handover</a> so you can stay focused on what you do.</p>
+              <h3>Process</h3>
+              <p>Each project moves through six phases. The same senior pair leads it from first conversation to defects period.</p>
+              <ol>
+                <li>Site sourcing or site review</li>
+                <li>Design coordination</li>
+                <li>Resource and building consent</li>
+                <li>Build</li>
+                <li>Handover</li>
+                <li>Defects period</li>
+              </ol>
+              <blockquote>The only thing we ask of you is the land and a decision. Everything else is ours to carry.</blockquote>
+              <h3>Specifics</h3>
+              <p>Use <code>strong</code> for in-body emphasis. Inline code reads as <code>color_red</code> when needed.</p>
+              <ul>
+                <li>Three sites currently in build.</li>
+                <li>Two in design.</li>
+                <li>One in defects period.</li>
+              </ul>
+              <hr>
+              <figure>
+                <img src="../assets/exterior-deck-dusk.jpg" alt="Halswell deck, dusk">
+                <figcaption>Halswell · rear deck and façade, October 2024</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-code"><span class="h">Single wrapper class</span><span class="k">.rich-text</span>
+  <span class="c">/* every nested h1–h6, p, ul, ol,
+     blockquote, code, pre, hr, a,
+     img, figure, figcaption inherits
+     its sizing from the type system. */</span></div>
+      </section>
+
+      <!-- ============ C15 · DIVIDER ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C15</span><h3>Divider</h3><span class="var">.divider · is-strong · is-thick · is-vertical</span></div>
+        <p class="sg-lede">Hairlines for table rows, form underlines, and section separators. Default is ink-at-15%.</p>
+
+        <div class="sg-row stack">
+          <div class="preview" style="display: block;">
+            <p style="margin: 0 0 1.25rem; color: var(--text_secondary);">Default · 1px ink-at-15%</p>
+            <hr class="divider">
+            <p style="margin: 1.5rem 0 1.25rem; color: var(--text_secondary);">is-strong · 1px full ink</p>
+            <hr class="divider is-strong">
+            <p style="margin: 1.5rem 0 1.25rem; color: var(--text_secondary);">is-thick · 2px ink-at-15%</p>
+            <hr class="divider is-thick">
+          </div>
+        </div>
+
+        <div class="sg-row">
+          <div class="preview ox" style="display: block;">
+            <p style="margin: 0 0 1.25rem; color: var(--color_cream-70);">.divider.on-accent-secondary</p>
+            <hr class="divider on-accent-secondary">
+          </div>
+          <div class="sg-code"><span class="h">Class structure</span><span class="k">.divider</span>              <span class="c">/* default */</span>
+<span class="k">.divider.is-strong</span>    <span class="c">/* full ink */</span>
+<span class="k">.divider.is-thick</span>     <span class="c">/* 2px */</span>
+<span class="k">.divider.is-vertical</span>  <span class="c">/* 1px wide */</span>
+<span class="k">.divider.on-inverse</span>
+<span class="k">.divider.on-accent-secondary</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C16 · SECTIONS / CONTAINERS ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C16</span><h3>Section &amp; container</h3><span class="var">.section · .container</span></div>
+        <p class="sg-lede">Every page section follows this two-class pattern. <code>section</code> sets background + 128px vertical padding; <code>container</code> centres and caps width.</p>
+
+        <div class="sg-token-grid" style="grid-template-columns: 1fr 1fr;">
+          <div><span class="name">.section</span><span class="val">parchment · 128px vertical</span></div>
+          <div><span class="name">.section.is-secondary</span><span class="val">cream · differentiation</span></div>
+          <div><span class="name">.section.is-tertiary</span><span class="val">warm cream · deep neutral</span></div>
+          <div><span class="name">.section.is-accent-primary</span><span class="val">red · emphasis + footer</span></div>
+          <div><span class="name">.section.is-accent-secondary</span><span class="val">oxblood · deep accent (reserved)</span></div>
+          <div><span class="name">.section.is-inverse</span><span class="val">ink · feature only</span></div>
+          <div><span class="name">.container</span><span class="val">max 1280px (default)</span></div>
+          <div><span class="name">.container.is-small</span><span class="val">max 640px · reading column</span></div>
+          <div><span class="name">.container.is-medium</span><span class="val">max 960px</span></div>
+          <div><span class="name">.container.is-xlarge</span><span class="val">max 1440px</span></div>
+          <div><span class="name">.padding-vertical_xlarge</span><span class="val">80px · tightens a section</span></div>
+          <div><span class="name">.padding_none</span><span class="val">strips default vertical padding</span></div>
+        </div>
+      </section>
+
+      <!-- ============ C17 · A11Y ============ -->
+      <section class="sg-section">
+        <div class="sg-section-head"><span class="num">C17</span><h3>Accessibility · must-pass</h3><span class="var">WCAG 2.2 AA</span></div>
+
+        <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8; max-width: 50rem;">
+          <li><code>&lt;html lang="en-NZ"&gt;</code> set in Site Settings.</li>
+          <li>One <code>&lt;h1&gt;</code> per page. Use <code>heading-style_h2</code> to demote visually without changing the tag.</li>
+          <li>Heading hierarchy never skips a level.</li>
+          <li>Skip link is the first focusable element (try it: <kbd>Tab</kbd> from page load).</li>
+          <li><code>&lt;main&gt;</code> wraps the page body. <code>&lt;nav&gt;</code> wraps the navbar. <code>&lt;footer&gt;</code> wraps the footer.</li>
+          <li>Every meaningful <code>&lt;img&gt;</code> has descriptive alt; decorative images set <code>alt=""</code>.</li>
+          <li>Link text is descriptive: <strong>Start a conversation</strong>, not <em>Click here</em>.</li>
+          <li>Focus rings are visible — 2px red outline, 2px offset (already in CSS).</li>
+          <li>Body contrast: ink on parchment = 16.2:1 · ink on cream = 15.9:1 (above 4.5:1).</li>
+          <li>Red on parchment 5.7:1 · red on cream 5.6:1 (passes for normal text).</li>
+          <li>Tap targets ≥ 44×44px.</li>
+          <li><code>prefers-reduced-motion</code> respected in CSS.</li>
+        </ul>
+      </section>
+    </section>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+
+      // Tabs
+      document.querySelectorAll('[data-sg-tabs]').forEach(root => {
+        root.querySelectorAll('.tabs_trigger').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-tab');
+            root.querySelectorAll('.tabs_trigger').forEach(t => {
+              t.classList.toggle('is-active', t === btn);
+              t.setAttribute('aria-selected', t === btn ? 'true' : 'false');
+            });
+            root.querySelectorAll('.tabs_panel').forEach(p => {
+              p.hidden = p.getAttribute('data-tab-panel') !== id;
+            });
+          });
+        });
+      });
+
+      // Accordion
+      document.querySelectorAll('[data-sg-accordion]').forEach(root => {
+        root.querySelectorAll('.accordion_trigger').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = btn.closest('.accordion_item');
+            const open = item.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        });
+      });
+
+      // Dropdown
+      document.querySelectorAll('[data-sg-dropdown]').forEach(root => {
+        const trigger = root.querySelector('.dropdown_trigger');
+        const menu = root.querySelector('.dropdown_menu');
+        if (!trigger || !menu) return;
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = menu.hasAttribute('hidden');
+          menu.toggleAttribute('hidden', !open);
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('click', (e) => {
+          if (!root.contains(e.target)) {
+            menu.setAttribute('hidden', '');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Slider
+      document.querySelectorAll('[data-sg-slider]').forEach(root => {
+        const track = root.querySelector('[data-slider-track]');
+        const dots = root.querySelectorAll('[data-slider-go]');
+        const prev = root.querySelector('[data-slider-prev]');
+        const next = root.querySelector('[data-slider-next]');
+        const total = track.children.length;
+        let i = 0;
+        const go = (n) => {
+          i = Math.max(0, Math.min(total - 1, n));
+          track.style.transform = `translateX(-${i * 100}%)`;
+          dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
+          if (prev) prev.disabled = i === 0;
+          if (next) next.disabled = i === total - 1;
+        };
+        dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
+        if (prev) prev.addEventListener('click', () => go(i - 1));
+        if (next) next.addEventListener('click', () => go(i + 1));
+        go(0);
+      });
+    });
+  </script>
+</body>
+</html>

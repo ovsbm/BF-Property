@@ -1,0 +1,56 @@
+/* Shared preview card styling — used by every file in preview/ */
+@import url("../colors_and_type.css");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bf-parchment);
+}
+
+.card {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 28px;
+  background: var(--bf-parchment);
+  color: var(--bf-ink);
+  font-family: var(--bf-font);
+}
+
+.card.cream { background: var(--bf-cream); color: var(--bf-ink); }
+.card.dark { background: var(--bf-ink); color: var(--bf-cream); }
+.card.oxblood { background: var(--bf-oxblood); color: var(--bf-cream); }
+.card.red { background: var(--bf-red); color: var(--bf-cream); }
+.card.warm { background: var(--bf-cream-warm); color: var(--bf-ink); }
+
+.row { display: flex; gap: 16px; align-items: stretch; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+
+.swatch {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  min-height: 110px;
+  position: relative;
+}
+.swatch .name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.swatch .hex {
+  font-size: 12px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.meta {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bf-ink-muted);
+  font-weight: 600;
+}
