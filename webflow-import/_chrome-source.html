@@ -1,0 +1,160 @@
+<!--
+  ============================================================
+  BF Property — canonical chrome markup
+  ------------------------------------------------------------
+  This file is the source-of-truth for what _chrome.js injects
+  into every page in this folder.
+
+  For the Webflow team: copy the <header> and <footer> blocks
+  below into Webflow as Symbols / Components. The sticky CTA
+  is optional — keep it if you want a soft second prompt.
+
+  Class names follow Flowkit v2. Pair with:
+    /webflow/flowkit-tokens.css  (variables + base components)
+    ui_kits/website/_page.css    (page-level component styles)
+  ============================================================
+-->
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <title>BF Property — chrome source (reference only)</title>
+  <link rel="stylesheet" href="../../webflow/flowkit-tokens.css">
+  <link rel="stylesheet" href="_page.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+<body style="background:#E8E1D3">
+  <!-- ============ A11Y · skip link ============ -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="nav" id="site-nav">
+    <div class="nav_container">
+      <a href="index.html" class="nav_logo" aria-label="BF Property home">
+        <img src="../../assets/logo-bf-property-red.svg" alt="BF Property" width="108" height="42">
+      </a>
+
+      <nav aria-label="Primary" class="primary-nav">
+        <ul class="nav_links" role="list">
+          <li><a href="index.html" class="nav_link is-current">Home</a></li>
+          <li class="has-menu">
+            <a href="services/index.html" class="nav_link" aria-haspopup="true">Services <i data-lucide="chevron-down" class="nav_chevron" aria-hidden="true"></i></a>
+            <div class="nav_menu" role="menu">
+              <ul class="nav_menu-list" role="list">
+                <li><a href="services/design-and-build.html" class="nav_menu-link" role="menuitem">Design &amp; Build</a></li>
+                <li><a href="services/custom-design.html" class="nav_menu-link" role="menuitem">Custom design</a></li>
+                <li><a href="services/multi-unit-townhouses.html" class="nav_menu-link" role="menuitem">Multi-unit &amp; townhouse</a></li>
+                <li><a href="services/medium-density.html" class="nav_menu-link" role="menuitem">Medium-density developments</a></li>
+                <li><a href="services/subdividing.html" class="nav_menu-link" role="menuitem">Subdividing</a></li>
+                <li><a href="services/knock-down-rebuild.html" class="nav_menu-link" role="menuitem">Knock-down-and-rebuild</a></li>
+                <li><a href="services/house-and-land.html" class="nav_menu-link" role="menuitem">House and land</a></li>
+                <li><a href="sell-your-land.html" class="nav_menu-link" role="menuitem">Sell us your land</a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="projects/index.html" class="nav_link">Projects</a></li>
+          <li><a href="about.html" class="nav_link">About</a></li>
+          <li><a href="journal/index.html" class="nav_link">Journal</a></li>
+          <li><a href="faq.html" class="nav_link">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <a href="contact.html" class="button">Get in touch</a>
+    </div>
+  </header>
+
+  <!-- ============ MAIN (per-page content goes here) ============ -->
+  <main id="main" style="padding: 4rem 2rem; max-width: 80rem; margin: 0 auto;">
+    <h1 style="font-size: 3rem; font-weight: 400; line-height: 1.04; letter-spacing: -0.01em;">
+      Chrome source reference
+    </h1>
+    <p style="font-size: 1.125rem; line-height: 1.6; max-width: 38rem; margin-top: 1rem; color: rgba(26,26,26,0.6);">
+      This page exists to show the Webflow team the canonical header, footer, and sticky-CTA markup that <code>_chrome.js</code> injects. Open the file in a text editor — there is nothing else to see here.
+    </p>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer_container">
+
+      <div class="footer_cta">
+        <h2 class="footer_cta-heading">Tell us about the site,<br>or what you'd like to build.</h2>
+        <a href="contact.html" class="button on-accent-primary">Start a conversation <i data-lucide="arrow-right" class="button_icon" aria-hidden="true"></i></a>
+      </div>
+
+      <hr class="divider on-accent-primary footer_divider" aria-hidden="true">
+
+      <div class="footer_grid">
+        <div>
+          <div class="footer_brand-mark">BF Property</div>
+          <p class="footer_brand-tagline">Canterbury-based direct-to-client contract developer. We develop. You receive.</p>
+          <p class="footer_brand-tagline" style="margin-top: 0.75rem; opacity: 0.55;">Trading brand of buildFIRST. Twenty-two years building in Canterbury.</p>
+        </div>
+
+        <nav aria-label="Services">
+          <h6>Services</h6>
+          <ul class="footer_list" role="list">
+            <li><a href="services/design-and-build.html" class="footer_link">Design &amp; Build</a></li>
+            <li><a href="services/custom-design.html" class="footer_link">Custom design</a></li>
+            <li><a href="services/multi-unit-townhouses.html" class="footer_link">Multi-unit &amp; townhouse</a></li>
+            <li><a href="services/medium-density.html" class="footer_link">Medium-density</a></li>
+            <li><a href="services/subdividing.html" class="footer_link">Subdividing</a></li>
+            <li><a href="services/knock-down-rebuild.html" class="footer_link">Knock-down-and-rebuild</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Company">
+          <h6>Company</h6>
+          <ul class="footer_list" role="list">
+            <li><a href="about.html" class="footer_link">About</a></li>
+            <li><a href="projects/index.html" class="footer_link">Projects</a></li>
+            <li><a href="journal/index.html" class="footer_link">Journal</a></li>
+            <li><a href="faq.html" class="footer_link">FAQ</a></li>
+            <li><a href="sell-your-land.html" class="footer_link">Sell us your land</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Contact">
+          <h6>Get in touch</h6>
+          <ul class="footer_list" role="list">
+            <li><a href="contact.html" class="footer_link">Start a conversation</a></li>
+            <li><a href="mailto:justin@buildfirst.co.nz" class="footer_link">justin@buildfirst.co.nz</a></li>
+            <li><a href="tel:021899345" class="footer_link">021 899 345</a></li>
+            <li class="footer_address" style="opacity:0.7; line-height: 1.5;">183 Weston Road,<br>St Albans, Christchurch 8052</li>
+            <li class="footer_socials">
+              <a href="#" class="footer_link" rel="noopener">Instagram</a>
+              <span aria-hidden="true" class="footer_socials-sep">&middot;</span>
+              <a href="#" class="footer_link" rel="noopener">Facebook</a>
+              <span aria-hidden="true" class="footer_socials-sep">&middot;</span>
+              <a href="#" class="footer_link" rel="noopener">LinkedIn</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer_base">
+      <div>&copy; 2026 BF Property. Master Builders &middot; Licensed Building Practitioner.</div>
+      <div class="footer_base-links">
+        <a href="privacy.html" class="footer_link">Privacy</a>
+        <a href="terms.html" class="footer_link">Terms</a>
+        <span>Christchurch, NZ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ STICKY CTA (optional) ============ -->
+  <aside class="bf-sticky-cta" role="complementary" aria-label="Quick contact">
+    <div class="bf-sticky-cta_inner">
+      <div class="bf-sticky-cta_copy">
+        <strong>Have a site or an idea?</strong>
+        <span>Start a conversation. No sales pitch.</span>
+      </div>
+      <a href="contact.html" class="button is-small">Get in touch <i data-lucide="arrow-right" class="button_icon" aria-hidden="true"></i></a>
+      <button type="button" class="bf-sticky-cta_close" aria-label="Dismiss">&times;</button>
+    </div>
+  </aside>
+
+  <script>document.addEventListener('DOMContentLoaded', () => window.lucide && lucide.createIcons());</script>
+</body>
+</html>

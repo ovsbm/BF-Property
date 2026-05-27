@@ -1,0 +1,193 @@
+<!-- ========================================================
+   BF Property — Webflow import block
+   Page: Contact · BF Property — Christchurch contract developer
+   Source: contact.html
+   
+   HOW TO USE IN WEBFLOW:
+   1. Add a new page in Webflow (or open an existing one)
+   2. Drop an "HTML Embed" component as the page body
+   3. Paste the <main>…</main> block below into the embed
+   4. The chrome (nav + footer) comes from your Webflow symbol
+      — see webflow-import/_chrome-source.html
+   5. Ensure flowkit-tokens.css and _page.css are in your
+      Webflow site's <head> via the Custom Code panel
+   ======================================================== -->
+
+<main id="main">
+
+    <!-- HERO -->
+    <section class="section page-hero" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="eyebrow margin-bottom_medium"><span class="eyebrow_dot"></span> Get in touch</div>
+        <div class="page-hero_grid">
+          <h1 id="contact-heading" class="page-hero_heading">Tell us about the site, or what you'd like to build.</h1>
+          <p class="page-hero_lead">One conversation, no sales pitch. We'll either be the right fit, or we'll tell you who is. You'll hear back from a senior person within one working day.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEAD-QUALIFYING FORM -->
+    <section class="section lead-form-section" aria-labelledby="lead-form-heading">
+      <div class="container">
+        <div class="lead-form_grid">
+
+          <form class="lead-form" onsubmit="event.preventDefault(); document.getElementById('lead-form-success').hidden=false; this.querySelector('button[type=submit]').textContent='Sent'; this.querySelector('button[type=submit]').disabled=true;" aria-labelledby="lead-form-heading">
+
+            <h2 id="lead-form-heading" class="lead-form_heading">A few questions so we can come prepared.</h2>
+            <p class="lead-form_intro">Skip anything you'd rather discuss in person. The more you tell us, the more useful the first call.</p>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About you</legend>
+              <div class="form-row">
+                <div class="form_field">
+                  <label for="q-name" class="form_label">Your name</label>
+                  <input id="q-name" name="name" type="text" class="form_input" placeholder="Margaret Holdsworth" autocomplete="name" required>
+                </div>
+                <div class="form_field">
+                  <label for="q-contact" class="form_label">Email or phone</label>
+                  <input id="q-contact" name="contact" type="text" class="form_input" placeholder="you@example.co.nz" required>
+                </div>
+              </div>
+
+              <div class="form_field">
+                <span class="form_label">Are you the decision-maker?</span>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="decision" value="yes" required> <span>Yes, the decision is mine</span></label>
+                  <label class="radio"><input type="radio" name="decision" value="joint"> <span>Joint, with a partner or family member</span></label>
+                  <label class="radio"><input type="radio" name="decision" value="trust"> <span>I represent a trust or investment vehicle</span></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About the site</legend>
+              <div class="form_field">
+                <span class="form_label">Do you already have the land?</span>
+                <div class="radio-row">
+                  <label class="radio"><input type="radio" name="land" value="have"> <span>Yes, I own the site</span></label>
+                  <label class="radio"><input type="radio" name="land" value="under-contract"> <span>Under contract</span></label>
+                  <label class="radio"><input type="radio" name="land" value="looking"> <span>Looking — I'd like BF to help source</span></label>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form_field">
+                  <label for="q-suburb" class="form_label">Suburb or area</label>
+                  <input id="q-suburb" name="suburb" type="text" class="form_input" placeholder="Halswell, Christchurch">
+                </div>
+                <div class="form_field">
+                  <label for="q-size" class="form_label">Approximate site size (m²)</label>
+                  <input id="q-size" name="size" type="text" class="form_input" placeholder="270">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="lead-form_group">
+              <legend class="lead-form_legend">About the build</legend>
+
+              <div class="form_field">
+                <label for="q-build" class="form_label">What are you thinking of building?</label>
+                <textarea id="q-build" name="build" class="form_textarea" placeholder="Three townhouses for long-term rental. Three-bedroom, single-garage."></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form_field">
+                  <label for="q-budget" class="form_label">Indicative build budget</label>
+                  <select id="q-budget" name="budget" class="form_select">
+                    <option value="">Prefer to discuss</option>
+                    <option value="under-1m">Under $1m</option>
+                    <option value="1-2m">$1m – $2m</option>
+                    <option value="2-5m">$2m – $5m</option>
+                    <option value="5m-plus">$5m and over</option>
+                  </select>
+                </div>
+                <div class="form_field">
+                  <label for="q-timing" class="form_label">Timing</label>
+                  <select id="q-timing" name="timing" class="form_select">
+                    <option value="">Open</option>
+                    <option value="now">Ready to start within 3 months</option>
+                    <option value="6m">Within 6 months</option>
+                    <option value="12m">Within 12 months</option>
+                    <option value="exploring">Exploring — no fixed date</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form_field">
+                <label for="q-anything" class="form_label">Anything else worth knowing</label>
+                <textarea id="q-anything" name="anything" class="form_textarea" placeholder="Heritage neighbour, existing dwelling to demolish, second-stage subdivision potential…"></textarea>
+              </div>
+            </fieldset>
+
+            <div class="lead-form_submit">
+              <button type="submit" class="button">Start a conversation <i data-lucide="arrow-right" class="button_icon" aria-hidden="true"></i></button>
+              <p class="form_note">Replies within one working day from a senior person. Your details aren't shared and aren't added to a mailing list.</p>
+            </div>
+
+            <div id="lead-form-success" class="lead-form_success" hidden role="status">
+              <strong>Thanks.</strong> We'll be in touch within one working day.
+            </div>
+          </form>
+
+          <aside class="lead-form_aside" aria-label="Office contact details">
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Office</div>
+              <div class="contact_block-value">183 Weston Road,<br>St Albans, Christchurch 8052</div>
+              <p class="form_note" style="margin-top: 0.5rem;">Visits by appointment. We meet at your site or ours.</p>
+            </div>
+            <hr class="divider">
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Email</div>
+              <div class="contact_block-value"><a href="mailto:justin@buildfirst.co.nz" class="text-link">justin@buildfirst.co.nz</a></div>
+            </div>
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Phone</div>
+              <div class="contact_block-value"><a href="tel:021899345" class="text-link">021 899 345</a></div>
+            </div>
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Hours</div>
+              <div class="contact_block-value">7 days, 7am to 5pm</div>
+              <p class="form_note" style="margin-top: 0.5rem;">Reply within 2 working days.</p>
+            </div>
+            <hr class="divider">
+            <div class="lead-form_aside-block">
+              <div class="contact_block-label">Already have a site</div>
+              <p class="contact_block-value">Use the <a href="sell-your-land.html" class="text-link">land assessment form</a> for a written feasibility note.</p>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT HAPPENS NEXT -->
+    <section class="section" aria-labelledby="next-heading">
+      <div class="container">
+        <div class="eyebrow margin-bottom_small"><span class="eyebrow_dot"></span> What happens next</div>
+        <h2 id="next-heading" class="contact_heading">After you press send.</h2>
+        <ol class="process_steps" role="list">
+          <li class="process_step">
+            <div class="process_step-num">Within 1 day</div>
+            <h3>A reply from a senior person</h3>
+            <p>Not a CRM auto-reply. The person who reads your form is the person who will run your project.</p>
+          </li>
+          <li class="process_step">
+            <div class="process_step-num">Within 1 week</div>
+            <h3>A 45-minute conversation</h3>
+            <p>At our St Albans office or on your site. We bring tea, you bring your questions. No slides.</p>
+          </li>
+          <li class="process_step">
+            <div class="process_step-num">Within 3 weeks</div>
+            <h3>A written feasibility note</h3>
+            <p>One-pager. Indicative scope, indicative cost, programme, and honest red flags. No charge.</p>
+          </li>
+          <li class="process_step">
+            <div class="process_step-num">After that</div>
+            <h3>Detailed design, or we shake hands</h3>
+            <p>You decide whether to proceed. If not, the note is yours to use however you like.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
